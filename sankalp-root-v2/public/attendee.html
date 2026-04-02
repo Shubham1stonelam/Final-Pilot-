@@ -1,49 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Sankalp 2026">
-  <meta name="theme-color" content="#0E0F09">
-  <title>Sankalp 2026</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%235F6838' width='192' height='192'/><text x='50%' y='50%' font-size='96' font-weight='bold' text-anchor='middle' dominant-baseline='middle' fill='%23D9AB28' font-family='serif'>S</text></svg>">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SANKALP 2026 — Event Command Center</title>
   <style>
     :root {
-      --bg: #0E0F09;
-      --surface: #1A1B15;
-      --surface2: #252820;
-      --olive: #5F6838;
-      --olive-bright: #8F993C;
-      --gold: #D9AB28;
-      --text: #F5F2E8;
-      --text-dim: #B8B5A8;
-      --border: #404039;
-      --red: #C0392B;
-      color-scheme: dark;
-    }
-
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #F5F2E8;
-        --surface: #FFFFFF;
-        --surface2: #E8E5D8;
-        --olive: #5F6838;
-        --olive-bright: #8F993C;
-        --gold: #D9AB28;
-        --text: #1A1B15;
-        --text-dim: #6B6B67;
-        --border: #D0CCC0;
-        --red: #C0392B;
-        color-scheme: light;
-      }
+      --bg: #0e0f09;
+      --surface: #171910;
+      --surface-2: #1f2218;
+      --surface-3: #262a1d;
+      --olive: #5f6838;
+      --olive-bright: #8f993c;
+      --gold: #d9ab28;
+      --text: #f5f2e8;
+      --text-dim: #a7a38f;
+      --border: rgba(143, 153, 60, 0.18);
+      --red: #c0392b;
+      --green: #4caf50;
+      --amber: #c97d2e;
+      --blue: #6b9bd1;
+      --g1: #6b9bd1;
+      --g2: #d4a574;
+      --radius: 14px;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
     }
 
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     html, body {
@@ -51,2038 +37,1637 @@
       height: 100%;
       background: var(--bg);
       color: var(--text);
-      font-family: 'Gill Sans', 'Gill Sans MT', system-ui, -apple-system, sans-serif;
-      font-size: 16px;
-      line-height: 1.5;
-      -webkit-user-select: none;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       overflow: hidden;
     }
 
-    /* Theme Toggle */
-    html.light-mode {
-      --bg: #F5F2E8;
-      --surface: #FFFFFF;
-      --surface2: #E8E5D8;
-      --text: #1A1B15;
-      --text-dim: #6B6B67;
-      --border: #D0CCC0;
+    button, input, textarea {
+      font: inherit;
     }
 
-    html.dark-mode {
-      --bg: #0E0F09;
-      --surface: #1A1B15;
-      --surface2: #252820;
-      --text: #F5F2E8;
-      --text-dim: #B8B5A8;
-      --border: #404039;
-    }
-
-    /* Screens Container */
-    #screen-container {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-    }
-
-    .screen {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg);
-      padding: 20px;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .screen.active {
-      display: flex;
-      opacity: 1;
-      z-index: 101;
-    }
-
-    /* Screens: Load */
-    #scr-load {
-      background: linear-gradient(135deg, var(--bg) 0%, var(--surface) 100%);
-    }
-
-    .sankalp-logo {
-      font-size: 64px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      color: var(--gold);
-      text-transform: uppercase;
-      animation: pulse-glow 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse-glow {
-      0%, 100% { text-shadow: 0 0 20px rgba(217, 171, 40, 0.5); }
-      50% { text-shadow: 0 0 40px rgba(217, 171, 40, 0.8); }
-    }
-
-    /* Screens: Landing */
-    #scr-land {
-      background: var(--bg);
-      padding-bottom: 40px;
-      gap: 20px;
-    }
-
-    .stonelam-logo-faded {
-      width: 80px;
-      height: 80px;
-      margin-bottom: 20px;
-      opacity: 0.3;
-      filter: brightness(0) invert(1);
-    }
-
-    .sankalp-logo-large {
-      font-size: 48px;
-      font-weight: bold;
-      letter-spacing: 3px;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .tagline {
-      font-size: 18px;
-      color: var(--text-dim);
-      text-align: center;
-      margin-bottom: 5px;
-    }
-
-    .event-date {
-      font-size: 14px;
-      color: var(--text-dim);
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    /* Screens: Notify */
-    #scr-notify {
-      background: var(--olive);
-      color: white;
-      gap: 30px;
-    }
-
-    .notify-icon {
-      font-size: 64px;
-      animation: bounce 1s ease-in-out infinite;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .notify-title {
-      font-size: 24px;
-      font-weight: bold;
-      text-align: center;
-    }
-
-    .notify-desc {
-      font-size: 14px;
-      text-align: center;
-      max-width: 280px;
-      opacity: 0.9;
-    }
-
-    /* Screens: Setup */
-    #scr-setup {
-      gap: 30px;
-    }
-
-    .setup-title {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .setup-steps {
+    body {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      width: 100%;
-      max-width: 320px;
     }
 
-    .setup-step {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      padding: 15px;
-      background: var(--surface);
-      border-radius: 12px;
-      border-left: 4px solid var(--olive-bright);
-    }
-
-    .setup-step-icon {
-      font-size: 28px;
-      min-width: 28px;
-      text-align: center;
-    }
-
-    .setup-step-text {
-      flex: 1;
-    }
-
-    .setup-step-label {
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .setup-step-sublabel {
-      font-size: 12px;
-      color: var(--text-dim);
-    }
-
-    /* Screens: Reveal */
-    #scr-reveal {
-      gap: 30px;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
-    }
-
-    .reveal-card {
-      width: 100%;
-      max-width: 320px;
-      padding: 40px 20px;
-      border-radius: 20px;
-      text-align: center;
-      background: var(--olive);
-      color: white;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-      animation: reveal-scale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    @keyframes reveal-scale {
-      0% { transform: scale(0.8); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    .reveal-name {
-      font-size: 28px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .reveal-group {
-      font-size: 14px;
-      opacity: 0.9;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .reveal-group-badge {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.2);
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    /* Screens: App Shell */
-    #scr-app {
+    .hidden {
       display: none !important;
     }
 
-    .app-shell {
+    /* Login */
+    #loginScreen {
       position: fixed;
       inset: 0;
-      width: 100%;
-      height: 100%;
+      background:
+        radial-gradient(circle at top right, rgba(143,153,60,0.14), transparent 28%),
+        linear-gradient(135deg, #0e0f09 0%, #171910 100%);
       display: flex;
-      flex-direction: column;
-      background: var(--bg);
-      z-index: 50;
-    }
-
-    .app-shell.active {
-      display: flex;
-    }
-
-    .app-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      min-height: 56px;
-      gap: 12px;
-    }
-
-    .app-logo {
-      width: 32px;
-      height: 32px;
-      filter: brightness(0) invert(1);
-    }
-
-    html.light-mode .app-logo {
-      filter: brightness(0);
-    }
-
-    .app-title {
-      flex: 1;
-      font-size: 14px;
-      font-weight: bold;
-      color: var(--gold);
-      letter-spacing: 1px;
-    }
-
-    .sos-button {
-      background: var(--red);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-      cursor: pointer;
-      -webkit-appearance: none;
-      appearance: none;
-      min-height: 32px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .sos-button:active {
-      background: #a02e23;
-      transform: scale(0.95);
-    }
-
-    .app-content {
-      flex: 1;
-      overflow-y: auto;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 72px;
-      background: var(--bg);
-    }
-
-    .app-content::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .app-content::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .app-content::-webkit-scrollbar-thumb {
-      background: var(--border);
-      border-radius: 2px;
-    }
-
-    .app-tabs {
-      display: none;
-    }
-
-    .app-tabs.active {
-      display: block;
-    }
-
-    .app-nav {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      height: 72px;
-      z-index: 60;
-    }
-
-    .app-nav-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      padding: 8px;
-      border: none;
-      background: none;
-      color: var(--text-dim);
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      -webkit-appearance: none;
-      appearance: none;
-      transition: color 0.2s ease;
+      z-index: 9999;
+      padding: 24px;
     }
 
-    .app-nav-item.active {
+    .login-card {
+      width: 100%;
+      max-width: 360px;
+      background: rgba(23, 25, 16, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .login-brand {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+
+    .login-sub {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .login-card input {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      padding: 14px 16px;
+      text-align: center;
+      letter-spacing: 0.22em;
+      font-size: 18px;
+    }
+
+    .login-card input:focus {
+      outline: none;
+      border-color: var(--olive-bright);
+    }
+
+    .login-card button {
+      background: var(--olive-bright);
+      color: var(--bg);
+      border: none;
+      border-radius: 10px;
+      padding: 13px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .login-error {
+      min-height: 18px;
+      font-size: 12px;
+      color: #ff8479;
+    }
+
+    /* Main app */
+    #mainApp {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .topbar {
+      height: 64px;
+      flex-shrink: 0;
+      border-bottom: 1px solid var(--border);
+      background: rgba(23, 25, 16, 0.94);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--olive), var(--olive-bright));
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
       color: var(--gold);
     }
 
-    .app-nav-icon {
-      font-size: 20px;
-    }
-
-    /* Tab Content */
-    .tab-content {
-      display: none;
-      padding: 16px;
-    }
-
-    .tab-content.active {
-      display: block;
-      animation: fade-in 0.3s ease;
-    }
-
-    @keyframes fade-in {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* Home Tab */
-    .greeting {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    .emoji {
-      display: inline-block;
-      margin-left: 4px;
-    }
-
-    .card {
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-      border: 1px solid var(--border);
-    }
-
-    .card-header {
-      font-size: 12px;
-      font-weight: bold;
+    .brand-sub {
+      font-size: 11px;
       color: var(--text-dim);
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
     }
 
-    .card-title {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    .card-subtitle {
-      font-size: 14px;
-      color: var(--text-dim);
-      margin-bottom: 12px;
-    }
-
-    .current-session {
-      background: linear-gradient(135deg, var(--olive) 0%, var(--olive-bright) 100%);
-      color: white;
-      border: none;
-    }
-
-    .current-session .card-header {
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .current-session .card-subtitle {
-      color: rgba(255, 255, 255, 0.7);
-    }
-
-    .stay-travel-group {
-      margin-bottom: 16px;
-    }
-
-    .stay-travel-label {
-      font-size: 12px;
-      font-weight: bold;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
-
-    .hotel-card {
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 12px;
-      border: 1px solid var(--border);
-      margin-bottom: 12px;
-    }
-
-    .hotel-item {
-      font-size: 13px;
-      margin-bottom: 6px;
+    .topbar-right {
       display: flex;
-      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      font-size: 12px;
+      color: var(--text-dim);
     }
 
-    .hotel-label {
-      color: var(--text-dim);
+    .live-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 999px;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(76, 175, 80, 0.5);
+      animation: blink 1.8s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .clock {
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
       font-weight: 600;
     }
 
-    .driver-card {
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 12px;
-      border: 1px solid var(--border);
-    }
-
-    .driver-item {
-      font-size: 13px;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .driver-name {
-      font-weight: bold;
-    }
-
-    .call-button {
-      background: var(--gold);
-      color: var(--text);
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: bold;
-      cursor: pointer;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-
-    .call-button:active {
-      opacity: 0.8;
-    }
-
-    .bus-note {
-      background: var(--surface2);
-      border-left: 3px solid var(--olive-bright);
-      border-radius: 6px;
-      padding: 10px 12px;
-      font-size: 13px;
-      color: var(--text-dim);
-    }
-
-    /* Journey Tab */
-    .journey-section {
-      margin-bottom: 20px;
-    }
-
-    .journey-day-title {
-      font-size: 14px;
-      font-weight: bold;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
-      margin-top: 8px;
-    }
-
-    .journey-item {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 16px;
-      position: relative;
-    }
-
-    .journey-timeline {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .journey-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--border);
+    .state-strip,
+    .action-strip {
+      display: grid;
+      gap: 10px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(23, 25, 16, 0.9);
       flex-shrink: 0;
     }
 
-    .journey-dot.active {
-      background: #22C55E;
-      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.2);
-      animation: pulse-beacon 2s ease-in-out infinite;
+    .state-strip {
+      grid-template-columns: repeat(5, 1fr);
     }
 
-    @keyframes pulse-beacon {
-      0%, 100% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.2); }
-      50% { box-shadow: 0 0 0 12px rgba(34, 197, 94, 0.1); }
+    .action-strip {
+      grid-template-columns: repeat(4, 1fr);
     }
 
-    .journey-line {
+    .state-btn,
+    .action-btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-dim);
+      padding: 11px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .state-btn:hover,
+    .action-btn:hover {
+      color: var(--text);
+      border-color: rgba(143,153,60,0.4);
+      background: var(--surface-2);
+    }
+
+    .state-btn.active {
+      background: linear-gradient(135deg, var(--olive), var(--olive-bright));
+      color: var(--bg);
+      border-color: transparent;
+    }
+
+    .main-grid {
       flex: 1;
-      width: 2px;
-      background: var(--border);
-      min-height: 20px;
+      min-height: 0;
+      overflow: auto;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 16px;
+      grid-auto-rows: auto;
+      align-items: start;
+      align-content: start;
     }
 
-    .journey-line.active {
-      background: #22C55E;
+    .card {
+      background: linear-gradient(180deg, rgba(31,34,24,0.96), rgba(23,25,16,0.98));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 0;
     }
 
-    .journey-content {
-      flex: 1;
-      padding-top: 4px;
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      grid-column: 3;
+      grid-row: 2 / 4;
     }
 
-    .journey-time {
+    .card-title {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .card-subtitle {
       font-size: 12px;
       color: var(--text-dim);
-      font-weight: bold;
     }
 
-    .journey-title {
-      font-size: 14px;
-      font-weight: bold;
-      margin-top: 2px;
+    /* Layout placement */
+    #statsCard { grid-column: 1 / -1; grid-row: 1; }
+    #arrivalsCard { grid-column: 1 / 3; grid-row: 2; }
+    #feedbackCard { grid-column: 1; grid-row: 3; }
+    #broadcastCard { grid-column: 2; grid-row: 3; }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
     }
 
-    .journey-item.done .journey-title {
-      text-decoration: line-through;
-      color: var(--text-dim);
-    }
-
-    .journey-group-badge {
-      display: inline-block;
-      background: var(--olive);
-      color: white;
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-size: 11px;
-      margin-top: 6px;
-    }
-
-    .journey-group-badge.highlight {
-      background: var(--gold);
-      color: var(--text);
-    }
-
-    /* Live Tab */
-    .tour-tracker {
-      margin-bottom: 24px;
-    }
-
-    .tour-group {
+    .stat-box {
       background: var(--surface);
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 12px;
       border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 12px;
+      text-align: center;
     }
 
-    .tour-group-name {
-      font-size: 13px;
-      font-weight: bold;
-      color: var(--text-dim);
+    .stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-label {
+      margin-top: 8px;
+      font-size: 10px;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
+      color: var(--text-dim);
     }
 
-    .tour-items {
+    /* Arrivals */
+    .group-progress {
       display: flex;
-      gap: 8px;
-      font-size: 11px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
-    .tour-item-badge {
-      padding: 4px 10px;
-      border-radius: 12px;
-      background: var(--surface2);
+    .progress-chip {
+      background: var(--surface);
       border: 1px solid var(--border);
-      color: var(--text-dim);
-    }
-
-    .tour-item-badge.live {
-      background: #22C55E;
-      color: white;
-      border: 1px solid #16A34A;
-    }
-
-    .tour-item-badge.done {
-      background: var(--border);
-      color: var(--text-dim);
-      text-decoration: line-through;
-    }
-
-    .announcements-section {
-      margin-top: 20px;
-    }
-
-    .announcements-title {
+      border-radius: 999px;
+      padding: 8px 12px;
       font-size: 12px;
-      font-weight: bold;
       color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
     }
 
-    .announcement-item {
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 10px;
-      border: 1px solid var(--border);
-      opacity: 0.6;
-    }
-
-    .announcement-item.latest {
-      border: 2px solid var(--gold);
-      opacity: 1;
-      background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
-    }
-
-    .announcement-time {
-      font-size: 11px;
-      color: var(--text-dim);
-      font-weight: bold;
-      margin-bottom: 4px;
-    }
-
-    .announcement-msg {
-      font-size: 14px;
-      line-height: 1.4;
-    }
-
-    .feedback-section {
-      margin-top: 20px;
-    }
-
-    .feedback-widget {
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 16px;
-      border: 1px solid var(--border);
-    }
-
-    .feedback-locked {
+    .arrival-list {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      text-align: center;
-      padding: 20px 0;
+      gap: 8px;
+      overflow: auto;
+      min-height: 0;
+      max-height: 360px;
     }
 
-    .feedback-lock-icon {
-      font-size: 40px;
-      opacity: 0.5;
-    }
-
-    .feedback-lock-msg {
-      font-size: 14px;
-      color: var(--text-dim);
-    }
-
-    .feedback-form {
-      display: flex;
-      flex-direction: column;
+    .arrival-row {
+      display: grid;
+      grid-template-columns: 12px 1fr auto auto;
       gap: 12px;
+      align-items: center;
+      padding: 12px;
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.03);
+      border-radius: 12px;
     }
 
-    .feedback-stars {
+    .arrival-row.late {
+      border-left: 3px solid var(--amber);
+    }
+
+    .arrival-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--olive-bright);
+      box-shadow: 0 0 12px rgba(143,153,60,0.35);
+    }
+
+    .arrival-main {
       display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .arrival-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .arrival-meta {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .arrival-time {
+      font-size: 12px;
+      color: var(--gold);
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .arrival-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .mini-btn {
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      padding: 7px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .mini-btn:hover {
+      border-color: rgba(143,153,60,0.5);
+      color: var(--gold);
+    }
+
+    /* Journey */
+    .session-display {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      min-height: 52px;
+      display: flex;
+      align-items: center;
       justify-content: center;
+      text-align: center;
+    }
+
+    .session-input-row,
+    .broadcast-actions,
+    .agent-input-row {
+      display: flex;
       gap: 8px;
     }
 
-    .star-button {
-      background: none;
+    .input,
+    .textarea {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 12px 13px;
+      outline: none;
+    }
+
+    .input:focus,
+    .textarea:focus {
+      border-color: rgba(143,153,60,0.55);
+    }
+
+    .textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .danger-btn {
       border: none;
-      font-size: 32px;
+      border-radius: 12px;
+      padding: 11px 14px;
       cursor: pointer;
-      opacity: 0.3;
-      transition: opacity 0.2s ease;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
     }
 
-    .star-button.selected,
-    .star-button:active {
-      opacity: 1;
+    .primary-btn {
+      background: linear-gradient(135deg, var(--olive), var(--olive-bright));
+      color: var(--bg);
     }
 
-    .feedback-textarea {
-      background: var(--bg);
+    .secondary-btn {
+      background: var(--surface-3);
       color: var(--text);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px;
-      font-family: inherit;
-      font-size: 14px;
-      min-height: 80px;
-      resize: none;
-      -webkit-appearance: none;
-      appearance: none;
     }
 
-    .feedback-textarea:focus {
-      outline: none;
-      border-color: var(--olive);
+    .danger-btn {
+      background: var(--red);
+      color: white;
     }
 
-    .feedback-notice {
+    .tour-block {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tour-row {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .tour-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      font-weight: 800;
+    }
+
+    .tour-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tour-btn {
+      flex: 1;
+      min-width: 70px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-dim);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .tour-btn.active {
+      background: var(--gold);
+      color: var(--bg);
+      border-color: transparent;
+    }
+
+    /* Feedback */
+    .feedback-rating {
+      font-size: 40px;
+      line-height: 1;
+      font-weight: 800;
+      color: var(--gold);
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .feedback-meta {
+      text-align: center;
       font-size: 12px;
       color: var(--text-dim);
-      text-align: center;
     }
 
-    .feedback-submit {
-      background: var(--olive);
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      -webkit-appearance: none;
-      appearance: none;
+    .feedback-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
-    .feedback-submit:active {
-      opacity: 0.8;
+    .feedback-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 11px;
+      color: var(--text-dim);
     }
 
-    .feedback-thank-you {
+    .feedback-feed {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      text-align: center;
-      padding: 20px 0;
+      gap: 8px;
+      max-height: 220px;
+      overflow: auto;
     }
 
-    .feedback-thank-you-msg {
-      font-size: 16px;
-      font-weight: bold;
+    .feedback-item {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 12px;
+      padding: 10px 12px;
     }
 
-    .feedback-more-cta {
-      background: var(--olive);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: bold;
-      cursor: pointer;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-
-    /* Alert Overlay */
-    #alert-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      animation: overlay-fade-in 0.3s ease;
-    }
-
-    #alert-overlay.active {
+    .feedback-item-top {
       display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 5px;
+      font-size: 11px;
+      color: var(--text-dim);
     }
 
-    @keyframes overlay-fade-in {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .feedback-stars {
+      color: var(--gold);
+      font-weight: 800;
     }
 
-    .alert-content {
-      max-width: 320px;
-      text-align: center;
-      animation: alert-scale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    @keyframes alert-scale {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    #alert-overlay.critical {
-      background: rgba(192, 57, 43, 0.95);
-    }
-
-    #alert-overlay.critical .alert-content {
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      border-radius: 16px;
-      padding: 24px;
-      animation: pulse-border 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse-border {
-      0%, 100% { border-color: rgba(255, 255, 255, 0.3); }
-      50% { border-color: rgba(255, 255, 255, 0.7); }
-    }
-
-    #alert-overlay.urgent {
-      background: rgba(95, 104, 56, 0.95);
-    }
-
-    #alert-overlay.urgent .alert-content {
-      border-radius: 16px;
-      padding: 24px;
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    #alert-overlay.normal {
-      background: rgba(14, 15, 9, 0.95);
-    }
-
-    #alert-overlay.normal .alert-content {
-      border-radius: 16px;
-      padding: 24px;
-      background: rgba(0, 0, 0, 0.3);
-    }
-
-    .alert-tone {
-      font-size: 28px;
-      margin-bottom: 12px;
-    }
-
-    .alert-message {
-      font-size: 18px;
-      font-weight: bold;
-      color: white;
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
-
-    .alert-time {
+    .feedback-text {
       font-size: 12px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 20px;
-    }
-
-    .alert-acknowledge {
-      background: white;
-      color: #1A1B15;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      -webkit-appearance: none;
-      appearance: none;
-      min-width: 200px;
-    }
-
-    .alert-acknowledge:active {
-      transform: scale(0.95);
-    }
-
-    /* Toast */
-    .toast {
-      position: fixed;
-      top: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--surface);
       color: var(--text);
-      padding: 12px 16px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      z-index: 900;
-      font-size: 14px;
-      animation: toast-slide-in 0.3s ease;
-      max-width: 90%;
+      line-height: 1.45;
     }
 
-    @keyframes toast-slide-in {
-      from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
-      to { transform: translateX(-50%) translateY(0); opacity: 1; }
-    }
-
-    /* Buttons */
-    button {
-      font-family: inherit;
-    }
-
-    .button {
-      background: var(--olive);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      -webkit-appearance: none;
-      appearance: none;
-      transition: background 0.2s ease;
-    }
-
-    .button:active {
-      background: var(--olive-bright);
-      transform: scale(0.98);
-    }
-
-    .button-secondary {
-      background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .button-secondary:active {
-      background: var(--surface2);
-    }
-
-    .button-group {
+    /* Broadcast */
+    .tone-row {
       display: flex;
-      gap: 10px;
-      width: 100%;
-      max-width: 280px;
+      gap: 8px;
     }
 
-    .button-group button {
+    .tone-btn {
       flex: 1;
-    }
-
-    .spacer {
-      height: 16px;
-    }
-
-    /* SOS Modal */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 200;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal-content {
+      border: 1px solid var(--border);
       background: var(--surface);
-      border-radius: 16px;
-      padding: 24px;
+      color: var(--text-dim);
+      border-radius: 10px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .tone-btn.active {
+      background: var(--gold);
+      color: var(--bg);
+      border-color: transparent;
+    }
+
+    .preview-box {
+      min-height: 88px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 13px;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .delivery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .delivery-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 10px;
       text-align: center;
-      max-width: 280px;
-      animation: modal-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    @keyframes modal-pop {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+    .delivery-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
     }
 
-    .modal-title {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 16px;
+    .delivery-label {
+      font-size: 10px;
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
     }
 
-    .modal-buttons {
+    /* Agent */
+    .quick-command-row {
       display: flex;
-      gap: 10px;
-      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
-    .modal-buttons button {
-      flex: 1;
+    .quick-command {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .quick-command:hover {
+      color: var(--gold);
+      border-color: rgba(143,153,60,0.45);
+    }
+
+    .chat-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      min-height: 220px;
+      max-height: 220px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .bubble {
+      max-width: 88%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+
+    .bubble.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, var(--olive), var(--olive-bright));
+      color: var(--bg);
+    }
+
+    .bubble.agent {
+      align-self: flex-start;
+      background: var(--surface-3);
+      border: 1px solid rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+
+    .bubble-meta {
+      margin-top: 4px;
+      font-size: 10px;
+      color: var(--text-dim);
+    }
+
+    .typing {
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .typing span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--olive-bright);
+      animation: typing 1.1s infinite;
+    }
+
+    .typing span:nth-child(2) { animation-delay: 0.15s; }
+    .typing span:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes typing {
+      0%, 100% { transform: translateY(0); opacity: .35; }
+      50% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    .sos-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: var(--red);
+      color: white;
+      text-align: center;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 12px 16px;
+      display: none;
+    }
+
+    .sos-banner.active {
+      display: block;
+    }
+
+    .empty {
+      color: var(--text-dim);
+      font-size: 13px;
+      text-align: center;
+      padding: 18px 10px;
+    }
+
+    @media (max-width: 1280px) {
+      .main-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      #statsCard { grid-column: 1 / -1; grid-row: 1; }
+      #arrivalsCard { grid-column: 1 / -1; grid-row: 2; }
+      .right-column { grid-column: 2; grid-row: 3 / 5; }
+      #feedbackCard { grid-column: 1; grid-row: 3; }
+      #broadcastCard { grid-column: 1; grid-row: 4; }
+
+      .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .state-strip { grid-template-columns: repeat(2, 1fr); }
+      .action-strip { grid-template-columns: repeat(2, 1fr); }
+      .main-grid { grid-template-columns: 1fr; }
+      #statsCard, #arrivalsCard, #feedbackCard, #broadcastCard, .right-column {
+        grid-column: 1;
+        grid-row: auto;
+      }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .delivery-grid { grid-template-columns: repeat(2, 1fr); }
+      .topbar {
+        height: auto;
+        padding: 12px;
+        gap: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .topbar-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .arrival-row {
+        grid-template-columns: 12px 1fr;
+      }
+      .arrival-time, .arrival-actions {
+        grid-column: 2;
+      }
     }
   </style>
 </head>
 <body>
-
-<!-- Screen Container -->
-<div id="screen-container">
-  <!-- Load Screen -->
-  <div id="scr-load" class="screen active">
-    <div class="sankalp-logo">SANKALP</div>
-  </div>
-
-  <!-- Landing Screen -->
-  <div id="scr-land" class="screen">
-    <svg class="stonelam-logo-faded" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
-      <rect fill="currentColor" width="192" height="192" rx="20"/>
-      <text x="50%" y="50%" font-size="96" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="currentColor" font-family="serif">S</text>
-    </svg>
-    <div class="sankalp-logo-large">SANKALP</div>
-    <div class="tagline">The Dawn of a New Era</div>
-    <div class="event-date">11–12 April 2026</div>
-    <button class="button" onclick="transitionScreen('scr-notify')">Begin</button>
-  </div>
-
-  <!-- Notify Screen -->
-  <div id="scr-notify" class="screen">
-    <div class="notify-icon">🔔</div>
-    <div class="notify-title">Stay Connected</div>
-    <div class="notify-desc">Get real-time updates and announcements during the event</div>
-    <div class="button-group">
-      <button class="button" onclick="requestNotifications()">Enable</button>
-      <button class="button button-secondary" onclick="transitionScreen('scr-setup')">Skip</button>
+  <div id="loginScreen">
+    <div class="login-card">
+      <div class="login-brand">SANKALP</div>
+      <div class="login-sub">Event Command Center</div>
+      <input id="pinInput" type="password" placeholder="ENTER PIN" maxlength="12" />
+      <button id="loginBtn">Enter</button>
+      <div id="loginError" class="login-error"></div>
     </div>
   </div>
 
-  <!-- Setup Screen -->
-  <div id="scr-setup" class="screen">
-    <div class="setup-title">Get Ready</div>
-    <div class="setup-steps">
-      <div class="setup-step">
-        <div class="setup-step-icon">🔕</div>
-        <div class="setup-step-text">
-          <div class="setup-step-label">Do Not Disturb</div>
-          <div class="setup-step-sublabel">Turn off for alerts</div>
+  <div id="sosBanner" class="sos-banner"></div>
+
+  <div id="mainApp" class="hidden">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="brand-mark">S</div>
+        <div class="brand-text">
+          <div class="brand-title">SANKALP 2026</div>
+          <div class="brand-sub">Live Event Command</div>
         </div>
       </div>
-      <div class="setup-step">
-        <div class="setup-step-icon">📳</div>
-        <div class="setup-step-text">
-          <div class="setup-step-label">Vibration</div>
-          <div class="setup-step-sublabel">Enable for haptics</div>
+
+      <div class="topbar-right">
+        <div class="live-chip">
+          <span class="live-dot"></span>
+          <span id="connectionLabel">Connected</span>
         </div>
-      </div>
-      <div class="setup-step">
-        <div class="setup-step-icon">🔔</div>
-        <div class="setup-step-text">
-          <div class="setup-step-label">Notifications</div>
-          <div class="setup-step-sublabel">Allow for messages</div>
-        </div>
+        <div class="clock" id="clockDisplay">00:00:00</div>
       </div>
     </div>
-    <button class="button" onclick="transitionScreen('scr-reveal')">I'm all set</button>
-  </div>
 
-  <!-- Reveal Screen -->
-  <div id="scr-reveal" class="screen">
-    <div id="reveal-spinner" style="font-size: 32px; animation: spin 1s linear infinite;">⏳</div>
-    <div id="reveal-card" style="display: none;" class="reveal-card">
-      <div class="reveal-name" id="reveal-name">Loading...</div>
-      <div class="reveal-group">
-        <span id="reveal-group">—</span>
-      </div>
-      <button class="button" onclick="enterApp()" style="width: 100%; margin-top: 10px;">Enter Sankalp →</button>
+    <div class="state-strip">
+      <button class="state-btn active" data-state="Registration">Registration</button>
+      <button class="state-btn" data-state="Transit">Transit</button>
+      <button class="state-btn" data-state="Refinery Tour">Refinery Tour</button>
+      <button class="state-btn" data-state="Session Live">Session Live</button>
+      <button class="state-btn" data-state="Feedback">Feedback</button>
     </div>
-  </div>
-</div>
 
-<!-- App Shell -->
-<div id="app-shell" class="app-shell">
-  <header class="app-header">
-    <svg class="app-logo" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
-      <rect fill="currentColor" width="192" height="192" rx="20"/>
-      <text x="50%" y="50%" font-size="96" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="currentColor" font-family="serif">S</text>
-    </svg>
-    <div class="app-title">SANKALP</div>
-    <button class="sos-button" onclick="toggleSOSModal()">🆘 SOS</button>
-  </header>
+    <div class="action-strip">
+      <button class="action-btn" data-message="Please proceed to the lobby." data-tone="normal">Call All</button>
+      <button class="action-btn" data-message="Bus is arriving now. Please assemble at the pickup point." data-tone="urgent">Bus Alert</button>
+      <button class="action-btn" data-message="Please move to the hall immediately." data-tone="urgent">Move to Hall</button>
+      <button class="action-btn" data-message="Lunch is now being served. Please proceed to the dining area." data-tone="normal">Lunch</button>
+    </div>
 
-  <div class="app-content" id="app-content">
-    <!-- Home Tab -->
-    <div id="tab-home" class="tab-content active">
-      <div class="greeting">
-        <span id="greeting-text">Good Morning</span><span class="emoji" id="greeting-emoji">👋</span>
-      </div>
-
-      <div class="card current-session">
-        <div class="card-header">Current Session</div>
-        <div class="card-title" id="session-title">—</div>
-        <div class="card-subtitle" id="session-time">—</div>
-      </div>
-
-      <div class="stay-travel-group">
-        <div class="stay-travel-label">Stay</div>
-        <div class="hotel-card" id="hotel-info">
-          <div class="hotel-item">
-            <span class="hotel-label">Hotel:</span>
-            <span id="hotel-name">—</span>
+    <div class="main-grid">
+      <section class="card" id="statsCard">
+        <div class="card-title">Live Status</div>
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-value" id="statArrivals">0</div>
+            <div class="stat-label">Arrived</div>
           </div>
-          <div class="hotel-item">
-            <span class="hotel-label">Room:</span>
-            <span id="hotel-room">—</span>
+          <div class="stat-box">
+            <div class="stat-value" id="statAttendees">0</div>
+            <div class="stat-label">Total Attendees</div>
           </div>
-          <div class="hotel-item">
-            <span class="hotel-label">Roommate:</span>
-            <span id="hotel-roommate">—</span>
+          <div class="stat-box">
+            <div class="stat-value" id="statOnline">0</div>
+            <div class="stat-label">Online</div>
           </div>
-          <div class="hotel-item">
-            <span class="hotel-label">Check-in:</span>
-            <span id="hotel-checkin">—</span>
+          <div class="stat-box">
+            <div class="stat-value" id="statFeedback">0.0</div>
+            <div class="stat-label">Avg Feedback</div>
           </div>
-          <div class="hotel-item">
-            <span class="hotel-label">Check-out:</span>
-            <span id="hotel-checkout">—</span>
+          <div class="stat-box">
+            <div class="stat-value" id="statNotifications">0</div>
+            <div class="stat-label">Notifications</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="statLastAction" style="font-size:14px; line-height:1.3; color:var(--text);">—</div>
+            <div class="stat-label">Last Action</div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="stay-travel-group">
-        <div class="stay-travel-label">Travel</div>
-        <div id="travel-info">
-          <div class="driver-card" id="driver-card" style="display: none;">
-            <div class="driver-item">
-              <span class="hotel-label">Driver</span>
-              <span id="driver-name">—</span>
+      <section class="card" id="arrivalsCard">
+        <div class="card-title">Arrivals Intelligence</div>
+        <div class="group-progress" id="groupProgress"></div>
+        <div class="arrival-list" id="arrivalList">
+          <div class="empty">Loading arrivals…</div>
+        </div>
+      </section>
+
+      <div class="right-column">
+        <section class="card" id="journeyCard">
+          <div class="card-title">Journey Control</div>
+
+          <div class="card-subtitle">Current Session</div>
+          <div class="session-display" id="currentSessionDisplay">Waiting...</div>
+
+          <div class="session-input-row">
+            <input id="sessionInput" class="input" placeholder="Update session name" />
+            <button class="primary-btn" id="updateSessionBtn">Update</button>
+          </div>
+
+          <div class="card-subtitle" style="margin-top:4px;">Tour Status</div>
+
+          <div class="tour-block">
+            <div class="tour-row">
+              <div class="tour-label">G1</div>
+              <div class="tour-actions">
+                <button class="tour-btn" data-group="1" data-state="waiting">Waiting</button>
+                <button class="tour-btn" data-group="1" data-state="live">Live</button>
+                <button class="tour-btn" data-group="1" data-state="done">Done</button>
+              </div>
             </div>
-            <div class="driver-item">
-              <span class="hotel-label">Vehicle</span>
-              <span id="driver-vehicle">—</span>
-            </div>
-            <div class="driver-item">
-              <span class="hotel-label">Phone</span>
-              <button class="call-button" id="call-btn" onclick="callDriver()">📞 Call</button>
+
+            <div class="tour-row">
+              <div class="tour-label">G2</div>
+              <div class="tour-actions">
+                <button class="tour-btn" data-group="2" data-state="waiting">Waiting</button>
+                <button class="tour-btn" data-group="2" data-state="live">Live</button>
+                <button class="tour-btn" data-group="2" data-state="done">Done</button>
+              </div>
             </div>
           </div>
-          <div class="bus-note" id="bus-note" style="display: none;">
-            ✈️ Airport pick-up available via shuttle service. Departs 1 hour after flight landing.
+
+          <button class="secondary-btn" id="openFeedbackBtn">Open Feedback</button>
+        </section>
+
+        <section class="card" id="agentCard">
+          <div class="card-title">AI Command Center</div>
+
+          <div class="quick-command-row">
+            <button class="quick-command" data-cmd="Give me the current event status.">Status</button>
+            <button class="quick-command" data-cmd="Mark Group 1 tour live.">G1 Live</button>
+            <button class="quick-command" data-cmd="Mark Group 2 tour live.">G2 Live</button>
+            <button class="quick-command" data-cmd="Mark Group 1 tour done.">G1 Done</button>
+            <button class="quick-command" data-cmd="Mark Group 2 tour done.">G2 Done</button>
+            <button class="quick-command" data-cmd="Open feedback for all attendees.">Open Feedback</button>
           </div>
-        </div>
-      </div>
 
-      <div class="spacer"></div>
-    </div>
-
-    <!-- Journey Tab -->
-    <div id="tab-journey" class="tab-content">
-      <div id="journey-container">
-        <!-- Populated by JS -->
-      </div>
-      <div class="spacer"></div>
-    </div>
-
-    <!-- Live Tab -->
-    <div id="tab-live" class="tab-content">
-      <div class="tour-tracker" id="tour-tracker">
-        <!-- Populated by JS -->
-      </div>
-
-      <div class="announcements-section">
-        <div class="announcements-title">Announcements</div>
-        <div id="announcements-container">
-          <div class="announcement-item" style="text-align: center; color: var(--text-dim); padding: 20px;">
-            No announcements yet
-          </div>
-        </div>
-      </div>
-
-      <div class="feedback-section">
-        <div class="announcements-title">Feedback</div>
-        <div class="feedback-widget">
-          <div id="feedback-locked" class="feedback-locked">
-            <div class="feedback-lock-icon">🔒</div>
-            <div class="feedback-lock-msg">Opens during Day 2 closing</div>
-          </div>
-          <form id="feedback-form" class="feedback-form" style="display: none;">
-            <div class="feedback-stars" id="feedback-stars">
-              <button type="button" class="star-button" data-rating="1">⭐</button>
-              <button type="button" class="star-button" data-rating="2">⭐</button>
-              <button type="button" class="star-button" data-rating="3">⭐</button>
-              <button type="button" class="star-button" data-rating="4">⭐</button>
-              <button type="button" class="star-button" data-rating="5">⭐</button>
+          <div class="chat-box" id="chatBox">
+            <div class="bubble agent">
+              NAV is ready. Give a command in plain language.
+              <div class="bubble-meta">AI assistant</div>
             </div>
-            <textarea class="feedback-textarea" id="feedback-text" placeholder="Share your thoughts..."></textarea>
-            <div class="feedback-notice">Submitted anonymously</div>
-            <button type="submit" class="feedback-submit">Send Feedback</button>
-          </form>
-          <div id="feedback-thankyou" style="display: none;" class="feedback-thank-you">
-            <div style="font-size: 32px;">✨</div>
-            <div class="feedback-thank-you-msg">Thank You!</div>
-            <button type="button" class="feedback-more-cta" onclick="resetFeedback()">Add more feedback</button>
           </div>
-        </div>
+
+          <div class="agent-input-row">
+            <input id="agentInput" class="input" placeholder="Type a command…" />
+            <button class="primary-btn" id="agentSendBtn">Send</button>
+          </div>
+        </section>
       </div>
 
-      <div class="spacer"></div>
+      <section class="card" id="feedbackCard">
+        <div class="card-title">Feedback Overview</div>
+        <div class="feedback-rating" id="avgRating">0.0</div>
+        <div class="feedback-meta" id="feedbackCount">0 submissions</div>
+        <div class="feedback-pill-row" id="feedbackSummary"></div>
+        <div class="feedback-pill-row" id="feedbackKeywords"></div>
+        <div class="feedback-feed" id="feedbackFeed">
+          <div class="empty">No feedback yet.</div>
+        </div>
+      </section>
+
+      <section class="card" id="broadcastCard">
+        <div class="card-title">Broadcast Console</div>
+
+        <textarea id="broadcastInput" class="textarea" placeholder="Type announcement…"></textarea>
+
+        <div class="tone-row">
+          <button class="tone-btn active" data-tone="normal">Normal</button>
+          <button class="tone-btn" data-tone="urgent">Urgent</button>
+          <button class="tone-btn" data-tone="critical">Critical</button>
+        </div>
+
+        <div class="broadcast-actions">
+          <button class="secondary-btn" id="rewriteBtn">AI Rewrite</button>
+          <button class="secondary-btn" id="previewBtn">Preview</button>
+          <button class="primary-btn" id="sendBtn">Send</button>
+        </div>
+
+        <div class="preview-box" id="previewBox">Preview will appear here.</div>
+
+        <div class="delivery-grid">
+          <div class="delivery-box">
+            <div class="delivery-value" id="deliverySent">0</div>
+            <div class="delivery-label">Sent</div>
+          </div>
+          <div class="delivery-box">
+            <div class="delivery-value" id="deliverySeen">0</div>
+            <div class="delivery-label">Seen</div>
+          </div>
+          <div class="delivery-box">
+            <div class="delivery-value" id="deliveryAcked">0</div>
+            <div class="delivery-label">Acked</div>
+          </div>
+          <div class="delivery-box">
+            <div class="delivery-value" id="deliveryPending">0</div>
+            <div class="delivery-label">Pending</div>
+          </div>
+        </div>
+      </section>
     </div>
+
   </div>
 
-  <nav class="app-nav">
-    <button class="app-nav-item active" onclick="switchTab('home')">
-      <div class="app-nav-icon">🏠</div>
-      <div>Home</div>
-    </button>
-    <button class="app-nav-item" onclick="switchTab('journey')">
-      <div class="app-nav-icon">🗺️</div>
-      <div>Journey</div>
-    </button>
-    <button class="app-nav-item" onclick="switchTab('live')">
-      <div class="app-nav-icon">📡</div>
-      <div>Live</div>
-    </button>
-  </nav>
-</div>
+  <script>
+    let adminPin = '';
+    let statusData = null;
+    let attendeesData = [];
+    let eventData = {};
+    let feedbackData = { feedback: [], count: 0, avgRating: 0, sentimentSummary: {}, topKeywords: [] };
+    let onlineData = { online: [] };
+    let announcementsData = [];
+    let currentTone = 'normal';
+    let agentHistory = [];
+    let eventSource = null;
 
-<!-- Alert Overlay -->
-<div id="alert-overlay" class="normal">
-  <div class="alert-content">
-    <div class="alert-tone" id="alert-tone">📢</div>
-    <div class="alert-message" id="alert-message">Announcement</div>
-    <div class="alert-time" id="alert-time">Just now</div>
-    <button class="alert-acknowledge" onclick="acknowledgeAlert()">ACKNOWLEDGE ✓</button>
-  </div>
-</div>
+    const loginScreen = document.getElementById('loginScreen');
+    const mainApp = document.getElementById('mainApp');
+    const pinInput = document.getElementById('pinInput');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginError = document.getElementById('loginError');
+    const clockDisplay = document.getElementById('clockDisplay');
+    const connectionLabel = document.getElementById('connectionLabel');
+    const sosBanner = document.getElementById('sosBanner');
 
-<!-- Toast -->
-<div id="toast" class="toast" style="display: none;"></div>
+    const broadcastInput = document.getElementById('broadcastInput');
+    const previewBox = document.getElementById('previewBox');
+    const chatBox = document.getElementById('chatBox');
+    const agentInput = document.getElementById('agentInput');
 
-<!-- SOS Modal -->
-<div id="sos-modal" class="modal-overlay">
-  <div class="modal-content">
-    <div class="modal-title">Send SOS?</div>
-    <p>Emergency support team will be notified</p>
-    <div class="modal-buttons">
-      <button class="button" onclick="confirmSOS()">Confirm</button>
-      <button class="button button-secondary" onclick="toggleSOSModal()">Cancel</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  // ============ STATE & CONFIG ============
-  const STATE = {
-    attendeeId: null,
-    currentTab: 'home',
-    isDarkMode: true,
-    currentSession: null,
-    attendeeData: null,
-    announcements: [],
-    selectedFeedbackRating: 0,
-    alertCurrentlyVisible: false,
-    eventSource: null,
-  };
-
-  const CONFIG = {
-    LOAD_DURATION: 1500,
-    TOAST_DURATION: 8000,
-    MODAL_FADE: 300,
-  };
-
-  // ============ THEME MANAGEMENT ============
-  function initTheme() {
-    const hours = new Date().getHours();
-    STATE.isDarkMode = hours < 7 || hours >= 19;
-    applyTheme();
-    setInterval(() => {
-      const hours = new Date().getHours();
-      const shouldBeDark = hours < 7 || hours >= 19;
-      if (shouldBeDark !== STATE.isDarkMode) {
-        STATE.isDarkMode = shouldBeDark;
-        applyTheme();
-      }
-    }, 60000);
-  }
-
-  function applyTheme() {
-    const html = document.documentElement;
-    html.classList.remove('light-mode', 'dark-mode');
-    html.classList.add(STATE.isDarkMode ? 'dark-mode' : 'light-mode');
-  }
-
-  // ============ SCREEN NAVIGATION ============
-  function transitionScreen(screenId) {
-    const current = document.querySelector('.screen.active');
-    const next = document.getElementById(screenId);
-    if (!current || !next) return;
-
-    current.classList.remove('active');
-    setTimeout(() => {
-      next.classList.add('active');
-    }, 50);
-  }
-
-  function initLoadScreen() {
-    setTimeout(() => {
-      transitionScreen('scr-land');
-    }, CONFIG.LOAD_DURATION);
-  }
-
-  // ============ PARSE ATTENDEE ID ============
-  function parseAttendeeId() {
-    const pathname = window.location.pathname;
-    const match = pathname.match(/\/a\/([^/]+)/);
-    if (match) {
-      STATE.attendeeId = match[1];
-    } else {
-      STATE.attendeeId = 'test-' + Math.random().toString(36).substr(2, 9);
-    }
-    // Auto-mark arrival if opened via QR scan (?arrive=1)
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('arrive') === '1') {
-      fetch(`/api/arrive/${STATE.attendeeId}`, { method: 'POST' }).catch(() => {});
-      // Clean URL without reloading
-      history.replaceState({}, '', window.location.pathname);
-    }
-  }
-
-  // ============ NOTIFICATIONS ============
-  async function requestNotifications() {
-    // Always proceed to next screen regardless of outcome
-    const proceed = () => transitionScreen('scr-setup');
-
-    if (!('Notification' in window)) { proceed(); return; }
-
-    try {
-      const permission = await Notification.requestPermission();
-      if (permission !== 'granted') { proceed(); return; }
-
-      // Register service worker & set up Web Push subscription
-      if (!('serviceWorker' in navigator) || !('PushManager' in window)) { proceed(); return; }
-
-      const reg = await navigator.serviceWorker.register('/sw.js');
-      await navigator.serviceWorker.ready;
-
-      // Get VAPID public key from server
-      const keyRes = await fetch('/api/vapid-key');
-      const { key: vapidKey } = await keyRes.json();
-      if (!vapidKey) { proceed(); return; }  // VAPID not configured yet
-
-      // Convert VAPID key from base64 to Uint8Array
-      const urlB64ToUint8 = (base64) => {
-        const padding = '='.repeat((4 - base64.length % 4) % 4);
-        const b64 = (base64 + padding).replace(/-/g, '+').replace(/_/g, '/');
-        const raw = atob(b64);
-        return Uint8Array.from([...raw].map(c => c.charCodeAt(0)));
+    function adminHeaders() {
+      return {
+        'Content-Type': 'application/json',
+        'x-admin-pin': adminPin
       };
-
-      // Subscribe to push
-      const subscription = await reg.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: urlB64ToUint8(vapidKey)
-      });
-
-      // Send subscription to server
-      await fetch(`/api/subscribe/${STATE.attendeeId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(subscription)
-      });
-
-    } catch (err) {
-      console.warn('Push setup failed (non-fatal):', err);
     }
 
-    proceed();
-  }
-
-  // ============ REVEAL SCREEN ============
-  async function revealAttendee() {
-    try {
-      const response = await fetch(`/api/attendee/${STATE.attendeeId}`);
-      if (!response.ok) throw new Error('Failed to fetch attendee');
-
-      const data = await response.json();
-      STATE.attendeeData = data;
-
-      document.getElementById('reveal-spinner').style.display = 'none';
-      document.getElementById('reveal-card').style.display = 'block';
-      document.getElementById('reveal-name').textContent = data.name || 'Attendee';
-      document.getElementById('reveal-group').textContent = data.groupLabel || 'Group';
-
-      const groupColor = data.groupColor || '#5F6838';
-      document.getElementById('reveal-card').style.background = groupColor;
-
-      navigator.vibrate?.([300, 100, 300]);
-    } catch (err) {
-      console.error('Reveal error:', err);
-      document.getElementById('reveal-spinner').textContent = '⚠️';
-      document.getElementById('reveal-spinner').style.opacity = '0.5';
-    }
-  }
-
-  // ============ ENTER APP ============
-  async function enterApp() {
-    document.getElementById('screen-container').style.display = 'none';
-    document.getElementById('app-shell').classList.add('active');
-
-    registerServiceWorker();
-    connectSSE();
-    populateHomeTab();
-    await loadJourneyFromEvent();  // fetch event itinerary then build journey
-    populateLiveTab();
-  }
-
-  // Fetch event.json itinerary and convert to journey format for this attendee
-  async function loadJourneyFromEvent() {
-    try {
-      const res = await fetch('/api/event');
-      const event = await res.json();
-      const attendee = STATE.attendeeData;
-      const userGroup = attendee?.group;
-
-      if (!event?.itinerary) return;
-
-      // Flatten itinerary into journey items, filtering group-specific ones
-      const journey = [];
-      const now = new Date();
-
-      event.itinerary.forEach(dayObj => {
-        dayObj.items.forEach(item => {
-          // Include if item is for 'all' or matches attendee's group
-          if (item.group !== 'all' && item.group !== userGroup) return;
-
-          // Build groupLabel for group-specific items
-          let groupLabel = null;
-          let isUserGroup = false;
-          if (item.group !== 'all') {
-            groupLabel = `Group ${item.group}`;
-            isUserGroup = item.group === userGroup;
-          }
-
-          // Mark as done if event date + time is in the past
-          // For pilot: use day number to estimate (Day 1 = Apr 11, Day 2 = Apr 12)
-          const eventDates = event.dates || [];
-          const dayDate = eventDates[dayObj.day - 1];
-          let done = false;
-          if (dayDate) {
-            const [d, m, y] = dayDate.split(' ');
-            const months = { Jan:0, Feb:1, Mar:2, Apr:3, May:4, Jun:5, Jul:6, Aug:7, Sep:8, Oct:9, Nov:10, Dec:11 };
-            const [h, min] = item.time.split(':');
-            const itemDate = new Date(parseInt(y), months[m], parseInt(d), parseInt(h), parseInt(min));
-            done = itemDate < now;
-          }
-
-          journey.push({
-            day: dayObj.day,
-            time: item.time,
-            title: item.title,
-            description: item.description,
-            type: item.type,
-            done,
-            groupLabel,
-            isUserGroup
-          });
-        });
-      });
-
-      // Attach to attendee data and render
-      STATE.attendeeData.journey = journey;
-      populateJourneyTab();
-    } catch (err) {
-      console.warn('Journey load failed:', err);
-    }
-  }
-
-  // ============ SERVICE WORKER ============
-  async function registerServiceWorker() {
-    if (!('serviceWorker' in navigator)) return;
-    try {
-      await navigator.serviceWorker.register('/sw.js');
-    } catch (err) {
-      console.warn('SW registration failed:', err);
-    }
-  }
-
-  // ============ HOME TAB ============
-  function populateHomeTab() {
-    updateGreeting();
-    setInterval(updateGreeting, 60000);
-
-    if (!STATE.attendeeData) return;
-
-    const data = STATE.attendeeData;
-
-    // Current session
-    if (data.currentSession) {
-      document.getElementById('session-title').textContent = data.currentSession.title || '—';
-      document.getElementById('session-time').textContent = data.currentSession.time || '—';
-    }
-
-    // Hotel info
-    if (data.hotel) {
-      document.getElementById('hotel-name').textContent = data.hotel.name || '—';
-      // field is roomNumber in data, not room
-      document.getElementById('hotel-room').textContent = data.hotel.roomNumber || data.hotel.room || '—';
-      document.getElementById('hotel-roommate').textContent = data.hotel.roommate || '—';
-      document.getElementById('hotel-checkin').textContent = data.hotel.checkIn || '—';
-      document.getElementById('hotel-checkout').textContent = data.hotel.checkOut || '—';
-    }
-
-    // Travel — data.travel is a plain string ("bus" or "airport"), not an object
-    if (data.driver) {
-      document.getElementById('driver-card').style.display = 'block';
-      document.getElementById('bus-note').style.display = 'none';
-      document.getElementById('driver-name').textContent = data.driver.name || '—';
-      document.getElementById('driver-vehicle').textContent = data.driver.vehicle || '—';
-      window.driverPhone = data.driver.phone;
-    } else if (data.travel === 'bus' || data.travel?.type === 'bus') {
-      document.getElementById('driver-card').style.display = 'none';
-      document.getElementById('bus-note').style.display = 'block';
-    }
-  }
-
-  function updateGreeting() {
-    const hour = new Date().getHours();
-    const name = STATE.attendeeData?.name?.split(' ')[0] || 'there';
-    let greeting = 'Good Morning';
-    let emoji = '🌅';
-
-    if (hour >= 12 && hour < 17) {
-      greeting = 'Good Afternoon';
-      emoji = '☀️';
-    } else if (hour >= 17 || hour < 7) {
-      greeting = 'Good Evening';
-      emoji = '🌙';
-    }
-
-    document.getElementById('greeting-text').textContent = greeting + ', ' + name;
-    document.getElementById('greeting-emoji').textContent = emoji;
-  }
-
-  function callDriver() {
-    if (window.driverPhone) {
-      window.location.href = `tel:${window.driverPhone}`;
-    }
-  }
-
-  // ============ JOURNEY TAB ============
-  function populateJourneyTab() {
-    if (!STATE.attendeeData?.journey) return;
-
-    const journey = STATE.attendeeData.journey;
-    const container = document.getElementById('journey-container');
-    container.innerHTML = '';
-
-    let lastDay = null;
-    let lastWasActive = false;
-
-    journey.forEach((item, idx) => {
-      if (item.day !== lastDay) {
-        lastDay = item.day;
-        const dayTitle = document.createElement('div');
-        dayTitle.className = 'journey-day-title';
-        dayTitle.textContent = 'Day ' + item.day;
-        container.appendChild(dayTitle);
-      }
-
-      const itemEl = document.createElement('div');
-      itemEl.className = 'journey-item' + (item.done ? ' done' : '');
-
-      const isActive = !item.done && !lastWasActive;
-      if (isActive) lastWasActive = true;
-
-      const timelineEl = document.createElement('div');
-      timelineEl.className = 'journey-timeline';
-
-      const dotEl = document.createElement('div');
-      dotEl.className = 'journey-dot' + (isActive ? ' active' : '');
-      timelineEl.appendChild(dotEl);
-
-      const lineEl = document.createElement('div');
-      lineEl.className = 'journey-line' + (isActive ? ' active' : '');
-      if (idx === journey.length - 1) lineEl.style.display = 'none';
-      timelineEl.appendChild(lineEl);
-
-      itemEl.appendChild(timelineEl);
-
-      const contentEl = document.createElement('div');
-      contentEl.className = 'journey-content';
-
-      const timeEl = document.createElement('div');
-      timeEl.className = 'journey-time';
-      timeEl.textContent = item.time || '—';
-      contentEl.appendChild(timeEl);
-
-      const titleEl = document.createElement('div');
-      titleEl.className = 'journey-title';
-      titleEl.textContent = item.title || '—';
-      contentEl.appendChild(titleEl);
-
-      if (item.groupLabel) {
-        const groupEl = document.createElement('div');
-        groupEl.className = 'journey-group-badge' + (item.isUserGroup ? ' highlight' : '');
-        groupEl.textContent = item.groupLabel;
-        contentEl.appendChild(groupEl);
-      }
-
-      itemEl.appendChild(contentEl);
-      container.appendChild(itemEl);
-    });
-  }
-
-  // ============ LIVE TAB ============
-  function populateLiveTab() {
-    if (!STATE.attendeeData?.tourGroups) return;
-
-    const tracker = document.getElementById('tour-tracker');
-    tracker.innerHTML = '';
-
-    STATE.attendeeData.tourGroups.forEach(group => {
-      const groupEl = document.createElement('div');
-      groupEl.className = 'tour-group';
-
-      const nameEl = document.createElement('div');
-      nameEl.className = 'tour-group-name';
-      nameEl.textContent = group.name;
-      groupEl.appendChild(nameEl);
-
-      const itemsEl = document.createElement('div');
-      itemsEl.className = 'tour-items';
-
-      group.items?.forEach(item => {
-        const badgeEl = document.createElement('div');
-        badgeEl.className = 'tour-item-badge ' + (item.status || 'upcoming');
-        badgeEl.textContent = item.label || '—';
-        itemsEl.appendChild(badgeEl);
-      });
-
-      groupEl.appendChild(itemsEl);
-      tracker.appendChild(groupEl);
-    });
-  }
-
-  // ============ TAB SWITCHING ============
-  function switchTab(tabName) {
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.app-nav-item').forEach(b => b.classList.remove('active'));
-
-    document.getElementById('tab-' + tabName).classList.add('active');
-    event.currentTarget.classList.add('active');
-
-    STATE.currentTab = tabName;
-  }
-
-  // ============ SSE CONNECTION ============
-  function connectSSE() {
-    if (STATE.eventSource) STATE.eventSource.close();
-
-    STATE.eventSource = new EventSource(`/api/events?id=${STATE.attendeeId}`);
-
-    STATE.eventSource.addEventListener('announcement', (e) => {
-      const data = JSON.parse(e.data);
-      showAlertOverlay(data);
-    });
-
-    STATE.eventSource.addEventListener('ping', (e) => {
-      const data = JSON.parse(e.data);
-      showToast(data.message || 'Ping', 8000);
-      navigator.vibrate?.([100, 50, 100]);
-    });
-
-    STATE.eventSource.addEventListener('feedbackOpen', () => {
-      unlockFeedback();
-    });
-
-    STATE.eventSource.addEventListener('sessionUpdate', (e) => {
-      const data = JSON.parse(e.data);
-      if (data.currentSession) {
-        STATE.attendeeData.currentSession = data.currentSession;
-        document.getElementById('session-title').textContent = data.currentSession.title || '—';
-        document.getElementById('session-time').textContent = data.currentSession.time || '—';
-      }
-    });
-
-    STATE.eventSource.addEventListener('tourUpdate', (e) => {
-      const data = JSON.parse(e.data);
-      if (data.tourGroups) {
-        STATE.attendeeData.tourGroups = data.tourGroups;
-        populateLiveTab();
-      }
-    });
-
-    STATE.eventSource.addEventListener('stateUpdate', (e) => {
-      const data = JSON.parse(e.data);
-      if (data.journey) {
-        STATE.attendeeData.journey = data.journey;
-        populateJourneyTab();
-      }
-    });
-
-    STATE.eventSource.onerror = () => {
-      STATE.eventSource.close();
-      setTimeout(connectSSE, 3000);
-    };
-  }
-
-  // ============ ALERT OVERLAY (CRITICAL) ============
-  let audioCtx = null;
-  let alertInterval = null;
-
-  // Unlock AudioContext on first user touch — required by Android Chrome autoplay policy
-  // This fires once then removes itself, so the audio context is ready before any alert
-  const unlockAudio = () => {
-    if (!audioCtx) {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      ctx.resume().then(() => ctx.close());
-    }
-    document.removeEventListener('touchstart', unlockAudio);
-    document.removeEventListener('click', unlockAudio);
-  };
-  document.addEventListener('touchstart', unlockAudio, { once: true });
-  document.addEventListener('click', unlockAudio, { once: true });
-
-  function playAlertSound(tone) {
-    try {
-      stopAlertSound();
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      // Android Chrome starts AudioContext suspended — must resume before scheduling nodes
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-
-      const play = (freq, start, dur) => {
-        const o = audioCtx.createOscillator();
-        const g = audioCtx.createGain();
-        o.connect(g);
-        g.connect(audioCtx.destination);
-        o.frequency.value = freq;
-        o.type = 'sine';
-        g.gain.setValueAtTime(0.4, audioCtx.currentTime + start);
-        g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + start + dur);
-        o.start(audioCtx.currentTime + start);
-        o.stop(audioCtx.currentTime + start + dur + 0.05);
-      };
-
-      if (tone === 'critical') {
-        const chime = () => {
-          play(880, 0, 0.2);
-          play(660, 0.25, 0.2);
-          play(880, 0.5, 0.2);
-          play(440, 0.75, 0.4);
-        };
-        chime();
-        alertInterval = setInterval(() => {
-          stopAlertSound();
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-          if (audioCtx.state === 'suspended') audioCtx.resume();
-          chime();
-        }, 2500);
-      } else if (tone === 'urgent') {
-        play(880, 0, 0.3);
-        play(880, 0.4, 0.3);
-        alertInterval = setInterval(() => {
-          stopAlertSound();
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-          if (audioCtx.state === 'suspended') audioCtx.resume();
-          play(880, 0, 0.3);
-          play(880, 0.4, 0.3);
-        }, 2000);
-      } else {
-        play(660, 0, 0.2);
-        play(880, 0.25, 0.3);
-      }
-    } catch (err) {
-      console.warn('Audio play error:', err);
-    }
-  }
-
-  function stopAlertSound() {
-    if (alertInterval) {
-      clearInterval(alertInterval);
-      alertInterval = null;
-    }
-    if (audioCtx) {
+    function formatTime(dateLike) {
+      if (!dateLike) return '—';
       try {
-        audioCtx.close();
-      } catch {}
-      audioCtx = null;
+        return new Date(dateLike).toLocaleTimeString('en-IN', {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      } catch {
+        return '—';
+      }
     }
-  }
 
-  function showAlertOverlay(announcement) {
-    STATE.alertCurrentlyVisible = true;
+    function formatRelative(dateLike) {
+      if (!dateLike) return '—';
+      const diffMs = Date.now() - new Date(dateLike).getTime();
+      const mins = Math.floor(diffMs / 60000);
+      if (mins <= 0) return 'Just now';
+      if (mins < 60) return `${mins} min ago`;
+      const hrs = Math.floor(mins / 60);
+      if (hrs < 24) return `${hrs} hr ago`;
+      return `${Math.floor(hrs / 24)} d ago`;
+    }
 
-    const tone = announcement.tone || 'normal';
-    const toneMap = {
-      critical: { icon: '🔴', text: 'CRITICAL' },
-      urgent: { icon: '⚠️', text: 'URGENT' },
-      normal: { icon: '📢', text: 'ANNOUNCEMENT' },
-    };
-    const toneInfo = toneMap[tone] || toneMap.normal;
+    function escapeHtml(str) {
+      return String(str || '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
 
-    const overlay = document.getElementById('alert-overlay');
-    overlay.className = tone;
+    async function fetchJSON(url, options = {}) {
+      const res = await fetch(url, options);
+      if (!res.ok) {
+        const text = await res.text().catch(() => '');
+        throw new Error(text || `Request failed: ${res.status}`);
+      }
+      return res.json();
+    }
 
-    document.getElementById('alert-tone').textContent = toneInfo.icon + ' ' + toneInfo.text;
-    document.getElementById('alert-message').textContent = announcement.message || 'Update';
-    document.getElementById('alert-time').textContent = announcement.time || new Date().toLocaleTimeString();
+    async function login() {
+      const pin = pinInput.value.trim();
+      loginError.textContent = '';
 
-    overlay.classList.add('active');
+      if (!pin) {
+        loginError.textContent = 'Enter PIN';
+        return;
+      }
 
-    const vibrationMap = {
-      critical: [500, 200, 500, 200, 500, 200, 500],
-      urgent: [300, 100, 300, 100, 300],
-      normal: [200, 100, 200],
-    };
-    navigator.vibrate?.(vibrationMap[tone] || vibrationMap.normal);
+      try {
+        await fetchJSON('/api/admin/auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pin })
+        });
 
-    playAlertSound(tone);
+        adminPin = pin;
+        loginScreen.classList.add('hidden');
+        mainApp.classList.remove('hidden');
 
-    window.currentAlertId = announcement.id;
-  }
+        refreshClock();
+        setInterval(refreshClock, 1000);
 
-  function acknowledgeAlert() {
-    stopAlertSound();
+        await loadAll();
+        connectSSE();
+        setInterval(loadAllSilent, 15000);
+      } catch {
+        loginError.textContent = 'Wrong PIN';
+      }
+    }
 
-    const overlay = document.getElementById('alert-overlay');
-    overlay.classList.remove('active');
-    STATE.alertCurrentlyVisible = false;
+    async function loadAll() {
+      const [statusRes, feedbackRes, onlineRes, announcementsRes] = await Promise.all([
+        fetchJSON('/api/admin/status', { headers: adminHeaders() }),
+        fetchJSON('/api/admin/feedback', { headers: adminHeaders() }),
+        fetchJSON('/api/admin/online', { headers: adminHeaders() }),
+        fetchJSON('/api/admin/announcements', { headers: adminHeaders() })
+      ]);
 
-    if (window.currentAlertId) {
-      // attendeeId in URL, alertId in body — matches server route /api/ack/:attendeeId
-      fetch(`/api/ack/${STATE.attendeeId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ alertId: window.currentAlertId })
-      }).catch(console.error);
+      attendeesData = statusRes.attendees || [];
+      statusData = statusRes.status || {};
+      eventData = statusRes.event || {};
+      feedbackData = feedbackRes || feedbackData;
+      onlineData = onlineRes || onlineData;
+      announcementsData = announcementsRes || [];
 
-      const announcement = {
-        id: window.currentAlertId,
-        message: document.getElementById('alert-message').textContent,
-        time: document.getElementById('alert-time').textContent,
+      renderAll();
+    }
+
+    async function loadAllSilent() {
+      try {
+        await loadAll();
+      } catch {}
+    }
+
+    function renderAll() {
+      renderStateStrip();
+      renderStats();
+      renderArrivals();
+      renderJourney();
+      renderFeedback();
+      renderBroadcastStats();
+    }
+
+    function renderStateStrip() {
+      const activeState = statusData?.systemState || 'Registration';
+      document.querySelectorAll('.state-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.state === activeState);
+      });
+    }
+
+    function renderStats() {
+      const arrivals = Object.keys(statusData?.arrivals || {}).length;
+      const total = attendeesData.length;
+      const online = (onlineData.online || []).length;
+      const avg = Number(feedbackData.avgRating || 0).toFixed(1);
+      const notifications = statusData?.notificationsSent || 0;
+      const lastAction = statusData?.lastAction || '—';
+
+      document.getElementById('statArrivals').textContent = arrivals;
+      document.getElementById('statAttendees').textContent = total;
+      document.getElementById('statOnline').textContent = online;
+      document.getElementById('statFeedback').textContent = avg;
+      document.getElementById('statNotifications').textContent = notifications;
+      document.getElementById('statLastAction').textContent = lastAction;
+    }
+
+    function renderArrivals() {
+      const groupProgress = document.getElementById('groupProgress');
+      const arrivalList = document.getElementById('arrivalList');
+
+      const arrivalsMap = statusData?.arrivals || {};
+      const arrivedAttendees = attendeesData
+        .filter(a => a.arrived || arrivalsMap[a.id])
+        .map(a => {
+          const arrival = arrivalsMap[a.id] || {};
+          return {
+            ...a,
+            arrivedAt: a.arrivedAt || a.arrivalTime || arrival.time || null,
+            department: a.department || arrival.department || '',
+            city: a.city || a.location || arrival.city || '',
+            group: String(a.group || ''),
+          };
+        });
+
+      const g1Total = attendeesData.filter(a => String(a.group) === '1').length;
+      const g2Total = attendeesData.filter(a => String(a.group) === '2').length;
+      const g1Arrived = arrivedAttendees.filter(a => String(a.group) === '1').length;
+      const g2Arrived = arrivedAttendees.filter(a => String(a.group) === '2').length;
+
+      groupProgress.innerHTML = `
+        <div class="progress-chip">Group 1: <strong>${g1Arrived}/${g1Total}</strong></div>
+        <div class="progress-chip">Group 2: <strong>${g2Arrived}/${g2Total}</strong></div>
+        <div class="progress-chip">Total: <strong>${arrivedAttendees.length}/${attendeesData.length}</strong></div>
+      `;
+
+      const sorted = arrivedAttendees.sort((a, b) => {
+        const ga = Number(a.group || 99);
+        const gb = Number(b.group || 99);
+        if (ga !== gb) return ga - gb;
+        return new Date(b.arrivedAt || 0) - new Date(a.arrivedAt || 0);
+      });
+
+      if (!sorted.length) {
+        arrivalList.innerHTML = '<div class="empty">No arrivals yet.</div>';
+        return;
+      }
+
+      arrivalList.innerHTML = sorted.map(a => {
+        const minutesLate = a.arrivedAt ? ((Date.now() - new Date(a.arrivedAt).getTime()) / 60000) : 0;
+        const lateClass = minutesLate > 180 ? 'late' : '';
+        return `
+          <div class="arrival-row ${lateClass}">
+            <div class="arrival-dot"></div>
+            <div class="arrival-main">
+              <div class="arrival-name">${escapeHtml(a.name)}</div>
+              <div class="arrival-meta">G${escapeHtml(a.group)} • ${escapeHtml(a.department || '—')} • ${escapeHtml(a.city || '—')}</div>
+            </div>
+            <div class="arrival-time" title="${escapeHtml(a.arrivedAt || '')}">
+              ${formatTime(a.arrivedAt)}<br><span style="color:var(--text-dim)">${formatRelative(a.arrivedAt)}</span>
+            </div>
+            <div class="arrival-actions">
+              <button class="mini-btn" onclick="pingAttendee('${escapeHtml(a.id)}')">Ping</button>
+              <button class="mini-btn" onclick="sendDirection('${escapeHtml(a.id)}')">Direct</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderJourney() {
+      document.getElementById('currentSessionDisplay').textContent =
+        statusData?.currentSession || 'Waiting...';
+
+      const group1 = statusData?.tourGroups?.['1'] || statusData?.group1Tour || 'waiting';
+      const group2 = statusData?.tourGroups?.['2'] || statusData?.group2Tour || 'waiting';
+
+      document.querySelectorAll('.tour-btn').forEach(btn => {
+        const group = btn.dataset.group;
+        const state = btn.dataset.state;
+        const current = group === '1' ? group1 : group2;
+        btn.classList.toggle('active', current === state);
+      });
+    }
+
+    function renderFeedback() {
+      document.getElementById('avgRating').textContent = Number(feedbackData.avgRating || 0).toFixed(1);
+      document.getElementById('feedbackCount').textContent = `${feedbackData.count || 0} submissions`;
+
+      const summary = feedbackData.sentimentSummary || {};
+      document.getElementById('feedbackSummary').innerHTML = `
+        <div class="feedback-pill">Positive: ${summary.positive || 0}</div>
+        <div class="feedback-pill">Neutral: ${summary.neutral || 0}</div>
+        <div class="feedback-pill">Negative: ${summary.negative || 0}</div>
+      `;
+
+      const keywords = feedbackData.topKeywords || [];
+      document.getElementById('feedbackKeywords').innerHTML = keywords.length
+        ? keywords.map(k => `<div class="feedback-pill">${escapeHtml(k)}</div>`).join('')
+        : '<div class="feedback-pill">No keywords yet</div>';
+
+      const feed = document.getElementById('feedbackFeed');
+      const items = (feedbackData.feedback || []).slice().reverse().slice(0, 8);
+
+      if (!items.length) {
+        feed.innerHTML = '<div class="empty">No feedback yet.</div>';
+        return;
+      }
+
+      feed.innerHTML = items.map(item => `
+        <div class="feedback-item">
+          <div class="feedback-item-top">
+            <span>${escapeHtml(item.name || 'Unknown')}</span>
+            <span class="feedback-stars">${'★'.repeat(Number(item.rating || 0))}</span>
+          </div>
+          <div class="feedback-text">${escapeHtml(item.comment || '—')}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderBroadcastStats() {
+      const latest = announcementsData?.[0];
+
+      document.getElementById('deliverySent').textContent = latest?.sent ?? 0;
+      document.getElementById('deliverySeen').textContent = Array.isArray(latest?.seen) ? latest.seen.length : 0;
+      document.getElementById('deliveryAcked').textContent = Array.isArray(latest?.acked) ? latest.acked.length : 0;
+      document.getElementById('deliveryPending').textContent = Array.isArray(latest?.pending) ? latest.pending.length : 0;
+    }
+
+    function refreshClock() {
+      clockDisplay.textContent = new Date().toLocaleTimeString('en-IN', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+    }
+
+    function connectSSE() {
+      if (eventSource) {
+        eventSource.close();
+      }
+
+      eventSource = new EventSource('/api/events?id=admin-console');
+      connectionLabel.textContent = 'Connected';
+
+      eventSource.onopen = () => {
+        connectionLabel.textContent = 'Connected';
       };
 
-      STATE.announcements.unshift(announcement);
-      updateAnnouncementsFeed();
+      eventSource.onerror = () => {
+        connectionLabel.textContent = 'Reconnecting…';
+      };
 
-      window.currentAlertId = null;
-    }
-  }
+      eventSource.onmessage = (evt) => {
+        try {
+          const data = JSON.parse(evt.data);
+          handleLiveEvent(data);
+        } catch {}
+      };
 
-  function updateAnnouncementsFeed() {
-    const container = document.getElementById('announcements-container');
-
-    if (STATE.announcements.length === 0) {
-      container.innerHTML = '<div style="text-align: center; color: var(--text-dim); padding: 20px;">No announcements yet</div>';
-      return;
-    }
-
-    container.innerHTML = '';
-    STATE.announcements.forEach((ann, idx) => {
-      const itemEl = document.createElement('div');
-      itemEl.className = 'announcement-item' + (idx === 0 ? ' latest' : '');
-
-      const timeEl = document.createElement('div');
-      timeEl.className = 'announcement-time';
-      timeEl.textContent = ann.time;
-      itemEl.appendChild(timeEl);
-
-      const msgEl = document.createElement('div');
-      msgEl.className = 'announcement-msg';
-      msgEl.textContent = ann.message;
-      itemEl.appendChild(msgEl);
-
-      container.appendChild(itemEl);
-    });
-  }
-
-  // ============ TOAST ============
-  function showToast(message, duration = 8000) {
-    const toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.style.display = 'block';
-
-    setTimeout(() => {
-      toast.style.display = 'none';
-    }, duration);
-  }
-
-  // ============ SOS ============
-  function toggleSOSModal() {
-    const modal = document.getElementById('sos-modal');
-    modal.classList.toggle('active');
-  }
-
-  function confirmSOS() {
-    if (STATE.attendeeId) {
-      fetch(`/api/sos/${STATE.attendeeId}`, { method: 'POST' }).catch(console.error);
-      navigator.vibrate?.([500, 200, 500]);
-      showToast('SOS sent to support team');
-    }
-    toggleSOSModal();
-  }
-
-  // ============ FEEDBACK ============
-  function unlockFeedback() {
-    document.getElementById('feedback-locked').style.display = 'none';
-    document.getElementById('feedback-form').style.display = 'flex';
-
-    document.querySelectorAll('.star-button').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const rating = parseInt(btn.dataset.rating);
-        STATE.selectedFeedbackRating = rating;
-        document.querySelectorAll('.star-button').forEach((b, i) => {
-          b.classList.toggle('selected', i < rating);
+      ['status', 'arrival', 'tourUpdate', 'sessionUpdate', 'announcement', 'feedbackOpen', 'stateUpdate', 'sos', 'ackUpdate'].forEach(type => {
+        eventSource.addEventListener(type, (evt) => {
+          try {
+            const data = JSON.parse(evt.data);
+            handleLiveEvent(data);
+          } catch {}
         });
       });
-    });
-  }
-
-  document.getElementById('feedback-form')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const text = document.getElementById('feedback-text').value;
-
-    if (STATE.attendeeId && STATE.selectedFeedbackRating > 0) {
-      fetch(`/api/feedback/${STATE.attendeeId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          rating: STATE.selectedFeedbackRating,
-          text: text,
-        }),
-      }).catch(console.error);
-
-      document.getElementById('feedback-form').style.display = 'none';
-      document.getElementById('feedback-thankyou').style.display = 'flex';
     }
-  });
 
-  function resetFeedback() {
-    STATE.selectedFeedbackRating = 0;
-    document.getElementById('feedback-text').value = '';
-    document.querySelectorAll('.star-button').forEach(b => b.classList.remove('selected'));
-    document.getElementById('feedback-form').style.display = 'flex';
-    document.getElementById('feedback-thankyou').style.display = 'none';
-  }
+    function handleLiveEvent(data) {
+      if (!data || !data.type) return;
 
-  // ============ INIT ============
-  document.addEventListener('DOMContentLoaded', () => {
-    parseAttendeeId();
-    initTheme();
-    initLoadScreen();
-
-    // When transitioning to reveal, fetch attendee data
-    const observer = new MutationObserver(() => {
-      const revealScreen = document.getElementById('scr-reveal');
-      if (revealScreen.classList.contains('active') && !STATE.attendeeData) {
-        revealAttendee();
+      if (data.type === 'status' && data.status) {
+        statusData = data.status;
+        renderAll();
+        return;
       }
+
+      if (data.type === 'arrival') {
+        loadAllSilent();
+        return;
+      }
+
+      if (data.type === 'tourUpdate') {
+        if (!statusData.tourGroups) statusData.tourGroups = {};
+        statusData.tourGroups[String(data.group)] = data.tourStatus || data.state || 'waiting';
+        statusData.group1Tour = statusData.tourGroups['1'];
+        statusData.group2Tour = statusData.tourGroups['2'];
+        renderJourney();
+        return;
+      }
+
+      if (data.type === 'sessionUpdate') {
+        statusData.currentSession = data.session;
+        renderJourney();
+        renderStats();
+        return;
+      }
+
+      if (data.type === 'announcement') {
+        loadAllSilent();
+        return;
+      }
+
+      if (data.type === 'feedbackOpen') {
+        statusData.feedbackOpen = true;
+        renderStats();
+        return;
+      }
+
+      if (data.type === 'stateUpdate') {
+        statusData.systemState = data.systemState;
+        renderStateStrip();
+        return;
+      }
+
+      if (data.type === 'sos') {
+        sosBanner.textContent = `SOS • ${data.name} • ${data.time}`;
+        sosBanner.classList.add('active');
+        setTimeout(() => sosBanner.classList.remove('active'), 8000);
+        return;
+      }
+
+      if (data.type === 'ackUpdate') {
+        const latest = announcementsData.find(a => a.id === data.alertId);
+        if (latest) {
+          latest.acked = data.ackedIds || [];
+          renderBroadcastStats();
+        }
+      }
+    }
+
+    async function updateSystemState(state) {
+      await fetchJSON('/api/admin/state', {
+        method: 'POST',
+        headers: adminHeaders(),
+        body: JSON.stringify({ systemState: state })
+      });
+      statusData.systemState = state;
+      renderStateStrip();
+    }
+
+    async function sendQuickAnnouncement(message, tone = 'normal') {
+      broadcastInput.value = message;
+      setTone(tone);
+      previewBox.textContent = message;
+      await sendAnnouncement();
+    }
+
+    function setTone(tone) {
+      currentTone = tone;
+      document.querySelectorAll('.tone-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tone === tone);
+      });
+    }
+
+    async function rewriteAnnouncement() {
+      const text = broadcastInput.value.trim();
+      if (!text) {
+        previewBox.textContent = 'Type an announcement first.';
+        return;
+      }
+
+      previewBox.textContent = 'Rewriting…';
+
+      try {
+        const data = await fetchJSON('/api/agent', {
+          method: 'POST',
+          headers: adminHeaders(),
+          body: JSON.stringify({ message: text, mode: 'rewrite' })
+        });
+
+        const rewritten = data.reply || text;
+        broadcastInput.value = rewritten;
+        previewBox.textContent = rewritten;
+      } catch {
+        previewBox.textContent = text;
+      }
+    }
+
+    function previewAnnouncement() {
+      const text = broadcastInput.value.trim();
+      previewBox.textContent = text || 'Preview will appear here.';
+    }
+
+    async function sendAnnouncement() {
+      const message = broadcastInput.value.trim();
+      if (!message) {
+        previewBox.textContent = 'Type an announcement first.';
+        return;
+      }
+
+      const data = await fetchJSON('/api/admin/announce', {
+        method: 'POST',
+        headers: adminHeaders(),
+        body: JSON.stringify({
+          message,
+          tone: currentTone
+        })
+      });
+
+      previewBox.textContent = `Sent at ${data.entry?.time || 'now'}:\n${message}`;
+      broadcastInput.value = '';
+      await loadAllSilent();
+    }
+
+    async function updateSession() {
+      const session = document.getElementById('sessionInput').value.trim();
+      if (!session) return;
+
+      await fetchJSON('/api/admin/session', {
+        method: 'POST',
+        headers: adminHeaders(),
+        body: JSON.stringify({ session })
+      });
+
+      document.getElementById('sessionInput').value = '';
+      statusData.currentSession = session;
+      renderJourney();
+    }
+
+    async function updateTour(group, state) {
+      await fetchJSON('/api/admin/tour', {
+        method: 'POST',
+        headers: adminHeaders(),
+        body: JSON.stringify({ group: Number(group), state })
+      });
+
+      if (!statusData.tourGroups) statusData.tourGroups = {};
+      statusData.tourGroups[String(group)] = state;
+      statusData.group1Tour = statusData.tourGroups['1'];
+      statusData.group2Tour = statusData.tourGroups['2'];
+      renderJourney();
+    }
+
+    async function openFeedback() {
+      await fetchJSON('/api/admin/feedback-open', {
+        method: 'POST',
+        headers: adminHeaders(),
+        body: JSON.stringify({})
+      });
+    }
+
+    async function pingAttendee(id) {
+      await fetchJSON(`/api/admin/ping/${id}`, {
+        method: 'POST',
+        headers: adminHeaders(),
+        body: JSON.stringify({
+          message: 'The event team is looking for you. Please check your device.'
+        })
+      });
+    }
+
+    async function sendDirection(id) {
+      await fetchJSON(`/api/admin/direction/${id}`, {
+        method: 'POST',
+        headers: adminHeaders(),
+        body: JSON.stringify({
+          message: 'Please proceed to the main hall immediately.'
+        })
+      });
+    }
+
+    function addChatBubble(role, text) {
+      const div = document.createElement('div');
+      div.className = `bubble ${role}`;
+      div.innerHTML = `${escapeHtml(text)}<div class="bubble-meta">${role === 'user' ? 'You' : 'NAV'}</div>`;
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function addTypingBubble() {
+      const div = document.createElement('div');
+      div.className = 'bubble agent';
+      div.id = 'typingBubble';
+      div.innerHTML = `<div class="typing"><span></span><span></span><span></span></div><div class="bubble-meta">NAV</div>`;
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function removeTypingBubble() {
+      const el = document.getElementById('typingBubble');
+      if (el) el.remove();
+    }
+
+    async function sendAgentCommand(textOverride = '') {
+      const text = (textOverride || agentInput.value).trim();
+      if (!text) return;
+
+      addChatBubble('user', text);
+      agentHistory.push({ role: 'user', content: text });
+      agentInput.value = '';
+      addTypingBubble();
+
+      try {
+        const data = await fetchJSON('/api/agent', {
+          method: 'POST',
+          headers: adminHeaders(),
+          body: JSON.stringify({
+            message: text,
+            history: agentHistory
+          })
+        });
+
+        removeTypingBubble();
+        const reply = data.reply || 'Done.';
+        addChatBubble('agent', reply);
+        agentHistory.push({ role: 'assistant', content: reply });
+        await loadAllSilent();
+      } catch {
+        removeTypingBubble();
+        addChatBubble('agent', 'Something went wrong while processing that command.');
+      }
+    }
+
+    // Event bindings
+    loginBtn.addEventListener('click', login);
+    pinInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') login();
     });
-    observer.observe(document.querySelector('#scr-reveal'), { attributes: true });
-  });
 
-  // Prevent pinch zoom
-  document.addEventListener('touchmove', (e) => {
-    if (e.touches.length > 1) e.preventDefault();
-  }, { passive: false });
-</script>
+    document.querySelectorAll('.state-btn').forEach(btn => {
+      btn.addEventListener('click', () => updateSystemState(btn.dataset.state));
+    });
 
+    document.querySelectorAll('.action-btn').forEach(btn => {
+      btn.addEventListener('click', () => sendQuickAnnouncement(btn.dataset.message, btn.dataset.tone || 'normal'));
+    });
+
+    document.querySelectorAll('.tone-btn').forEach(btn => {
+      btn.addEventListener('click', () => setTone(btn.dataset.tone));
+    });
+
+    document.getElementById('rewriteBtn').addEventListener('click', rewriteAnnouncement);
+    document.getElementById('previewBtn').addEventListener('click', previewAnnouncement);
+    document.getElementById('sendBtn').addEventListener('click', sendAnnouncement);
+    document.getElementById('updateSessionBtn').addEventListener('click', updateSession);
+    document.getElementById('openFeedbackBtn').addEventListener('click', openFeedback);
+
+    document.querySelectorAll('.tour-btn').forEach(btn => {
+      btn.addEventListener('click', () => updateTour(btn.dataset.group, btn.dataset.state));
+    });
+
+    document.querySelectorAll('.quick-command').forEach(btn => {
+      btn.addEventListener('click', () => sendAgentCommand(btn.dataset.cmd));
+    });
+
+    document.getElementById('agentSendBtn').addEventListener('click', () => sendAgentCommand());
+    agentInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') sendAgentCommand();
+    });
+  </script>
 </body>
 </html>
