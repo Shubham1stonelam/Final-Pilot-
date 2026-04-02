@@ -279,8 +279,7 @@
       display: grid;
       grid-template-columns: 1.2fr 1fr 1fr;
       gap: 16px;
-      grid-auto-rows: auto;
-      align-items: start;
+      grid-auto-rows: minmax(160px, auto);
       align-content: start;
     }
 
@@ -294,14 +293,6 @@
       flex-direction: column;
       gap: 14px;
       min-height: 0;
-    }
-
-    .right-column {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      grid-column: 3;
-      grid-row: 2 / 4;
     }
 
     .card-title {
@@ -318,10 +309,12 @@
     }
 
     /* Layout placement */
-    #statsCard { grid-column: 1 / -1; grid-row: 1; }
-    #arrivalsCard { grid-column: 1 / 3; grid-row: 2; }
-    #feedbackCard { grid-column: 1; grid-row: 3; }
-    #broadcastCard { grid-column: 2; grid-row: 3; }
+    #statsCard { grid-column: 1 / -1; }
+    #arrivalsCard { grid-column: 1 / 3; }
+    #journeyCard { grid-column: 3; }
+    #feedbackCard { grid-column: 1; }
+    #broadcastCard { grid-column: 2; }
+    #agentCard { grid-column: 3; }
 
     /* Stats */
     .stats-grid {
@@ -819,11 +812,12 @@
         grid-template-columns: 1fr 1fr;
       }
 
-      #statsCard { grid-column: 1 / -1; grid-row: 1; }
-      #arrivalsCard { grid-column: 1 / -1; grid-row: 2; }
-      .right-column { grid-column: 2; grid-row: 3 / 5; }
-      #feedbackCard { grid-column: 1; grid-row: 3; }
-      #broadcastCard { grid-column: 1; grid-row: 4; }
+      #statsCard { grid-column: 1 / -1; }
+      #arrivalsCard { grid-column: 1 / -1; }
+      #journeyCard { grid-column: 1; }
+      #feedbackCard { grid-column: 2; }
+      #broadcastCard { grid-column: 1; }
+      #agentCard { grid-column: 2; }
 
       .stats-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -834,9 +828,8 @@
       .state-strip { grid-template-columns: repeat(2, 1fr); }
       .action-strip { grid-template-columns: repeat(2, 1fr); }
       .main-grid { grid-template-columns: 1fr; }
-      #statsCard, #arrivalsCard, #feedbackCard, #broadcastCard, .right-column {
+      #statsCard, #arrivalsCard, #journeyCard, #feedbackCard, #broadcastCard, #agentCard {
         grid-column: 1;
-        grid-row: auto;
       }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .delivery-grid { grid-template-columns: repeat(2, 1fr); }
@@ -946,68 +939,41 @@
         </div>
       </section>
 
-      <div class="right-column">
-        <section class="card" id="journeyCard">
-          <div class="card-title">Journey Control</div>
+      <section class="card" id="journeyCard">
+        <div class="card-title">Journey Control</div>
 
-          <div class="card-subtitle">Current Session</div>
-          <div class="session-display" id="currentSessionDisplay">Waiting...</div>
+        <div class="card-subtitle">Current Session</div>
+        <div class="session-display" id="currentSessionDisplay">Waiting...</div>
 
-          <div class="session-input-row">
-            <input id="sessionInput" class="input" placeholder="Update session name" />
-            <button class="primary-btn" id="updateSessionBtn">Update</button>
-          </div>
+        <div class="session-input-row">
+          <input id="sessionInput" class="input" placeholder="Update session name" />
+          <button class="primary-btn" id="updateSessionBtn">Update</button>
+        </div>
 
-          <div class="card-subtitle" style="margin-top:4px;">Tour Status</div>
+        <div class="card-subtitle" style="margin-top:4px;">Tour Status</div>
 
-          <div class="tour-block">
-            <div class="tour-row">
-              <div class="tour-label">G1</div>
-              <div class="tour-actions">
-                <button class="tour-btn" data-group="1" data-state="waiting">Waiting</button>
-                <button class="tour-btn" data-group="1" data-state="live">Live</button>
-                <button class="tour-btn" data-group="1" data-state="done">Done</button>
-              </div>
-            </div>
-
-            <div class="tour-row">
-              <div class="tour-label">G2</div>
-              <div class="tour-actions">
-                <button class="tour-btn" data-group="2" data-state="waiting">Waiting</button>
-                <button class="tour-btn" data-group="2" data-state="live">Live</button>
-                <button class="tour-btn" data-group="2" data-state="done">Done</button>
-              </div>
+        <div class="tour-block">
+          <div class="tour-row">
+            <div class="tour-label">G1</div>
+            <div class="tour-actions">
+              <button class="tour-btn" data-group="1" data-state="waiting">Waiting</button>
+              <button class="tour-btn" data-group="1" data-state="live">Live</button>
+              <button class="tour-btn" data-group="1" data-state="done">Done</button>
             </div>
           </div>
 
-          <button class="secondary-btn" id="openFeedbackBtn">Open Feedback</button>
-        </section>
-
-        <section class="card" id="agentCard">
-          <div class="card-title">AI Command Center</div>
-
-          <div class="quick-command-row">
-            <button class="quick-command" data-cmd="Give me the current event status.">Status</button>
-            <button class="quick-command" data-cmd="Mark Group 1 tour live.">G1 Live</button>
-            <button class="quick-command" data-cmd="Mark Group 2 tour live.">G2 Live</button>
-            <button class="quick-command" data-cmd="Mark Group 1 tour done.">G1 Done</button>
-            <button class="quick-command" data-cmd="Mark Group 2 tour done.">G2 Done</button>
-            <button class="quick-command" data-cmd="Open feedback for all attendees.">Open Feedback</button>
-          </div>
-
-          <div class="chat-box" id="chatBox">
-            <div class="bubble agent">
-              NAV is ready. Give a command in plain language.
-              <div class="bubble-meta">AI assistant</div>
+          <div class="tour-row">
+            <div class="tour-label">G2</div>
+            <div class="tour-actions">
+              <button class="tour-btn" data-group="2" data-state="waiting">Waiting</button>
+              <button class="tour-btn" data-group="2" data-state="live">Live</button>
+              <button class="tour-btn" data-group="2" data-state="done">Done</button>
             </div>
           </div>
+        </div>
 
-          <div class="agent-input-row">
-            <input id="agentInput" class="input" placeholder="Type a command…" />
-            <button class="primary-btn" id="agentSendBtn">Send</button>
-          </div>
-        </section>
-      </div>
+        <button class="secondary-btn" id="openFeedbackBtn">Open Feedback</button>
+      </section>
 
       <section class="card" id="feedbackCard">
         <div class="card-title">Feedback Overview</div>
@@ -1058,8 +1024,32 @@
           </div>
         </div>
       </section>
-    </div>
 
+      <section class="card" id="agentCard">
+        <div class="card-title">AI Command Center</div>
+
+        <div class="quick-command-row">
+          <button class="quick-command" data-cmd="Give me the current event status.">Status</button>
+          <button class="quick-command" data-cmd="Mark Group 1 tour live.">G1 Live</button>
+          <button class="quick-command" data-cmd="Mark Group 2 tour live.">G2 Live</button>
+          <button class="quick-command" data-cmd="Mark Group 1 tour done.">G1 Done</button>
+          <button class="quick-command" data-cmd="Mark Group 2 tour done.">G2 Done</button>
+          <button class="quick-command" data-cmd="Open feedback for all attendees.">Open Feedback</button>
+        </div>
+
+        <div class="chat-box" id="chatBox">
+          <div class="bubble agent">
+            NAV is ready. Give a command in plain language.
+            <div class="bubble-meta">AI assistant</div>
+          </div>
+        </div>
+
+        <div class="agent-input-row">
+          <input id="agentInput" class="input" placeholder="Type a command…" />
+          <button class="primary-btn" id="agentSendBtn">Send</button>
+        </div>
+      </section>
+    </div>
   </div>
 
   <script>
