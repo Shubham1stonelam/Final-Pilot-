@@ -1,0 +1,19 @@
+{
+  "name": "SANKALP 2026",
+  "short_name": "SANKALP",
+  "description": "Stonelam SANKALP Townhall — Live Event App",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d0d0d",
+  "theme_color": "#5F6838",
+  "icons": [
+    {
+      "src": "/logo-sankalp.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["events", "productivity"]
+}

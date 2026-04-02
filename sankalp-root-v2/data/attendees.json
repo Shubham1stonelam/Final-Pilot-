@@ -1,0 +1,39 @@
+[
+  {
+    "id": "nav-001", "name": "Shubham", "department": "Marketing", "city": "Delhi",
+    "phone": "9810000001", "group": 1, "groupLabel": "Group 1", "groupColor": "#5F6838",
+    "travel": "bus",
+    "hotel": { "name": "Ramada by Wyndham, Ajmer", "roomNumber": "312", "roommate": "KK", "checkIn": "11 Apr 2026", "checkOut": "12 Apr 2026", "note": "Breakfast included" }
+  },
+  {
+    "id": "nav-002", "name": "KK", "department": "Sales", "city": "Delhi",
+    "phone": "9810000002", "group": 1, "groupLabel": "Group 1", "groupColor": "#5F6838",
+    "travel": "bus",
+    "hotel": { "name": "Ramada by Wyndham, Ajmer", "roomNumber": "312", "roommate": "Shubham", "checkIn": "11 Apr 2026", "checkOut": "12 Apr 2026", "note": "Breakfast included" }
+  },
+  {
+    "id": "nav-003", "name": "Naman", "department": "Sales", "city": "Delhi",
+    "phone": "9810000003", "group": 2, "groupLabel": "Group 2", "groupColor": "#D9AB28",
+    "travel": "bus",
+    "hotel": { "name": "Ramada by Wyndham, Ajmer", "roomNumber": "207", "roommate": "Sachin", "checkIn": "11 Apr 2026", "checkOut": "12 Apr 2026", "note": "Breakfast included" }
+  },
+  {
+    "id": "nav-004", "name": "Dayal", "department": "Operations", "city": "Delhi",
+    "phone": "9810000004", "group": 2, "groupLabel": "Group 2", "groupColor": "#D9AB28",
+    "travel": "airport",
+    "driver": { "name": "Rajesh Kumar", "phone": "9876543210", "vehicle": "White Toyota Innova", "plate": "DL 3C AS 4521", "pickup": "IGI Airport T2" },
+    "hotel": { "name": "Ramada by Wyndham, Ajmer", "roomNumber": "204", "roommate": "Akansha", "checkIn": "11 Apr 2026", "checkOut": "12 Apr 2026", "note": "Breakfast included" }
+  },
+  {
+    "id": "nav-005", "name": "Akansha", "department": "Marketing", "city": "Delhi",
+    "phone": "9810000005", "group": 1, "groupLabel": "Group 1", "groupColor": "#5F6838",
+    "travel": "bus",
+    "hotel": { "name": "Ramada by Wyndham, Ajmer", "roomNumber": "204", "roommate": "Dayal", "checkIn": "11 Apr 2026", "checkOut": "12 Apr 2026", "note": "Breakfast included" }
+  },
+  {
+    "id": "nav-006", "name": "Sachin", "department": "Sales", "city": "Delhi",
+    "phone": "9810000006", "group": 2, "groupLabel": "Group 2", "groupColor": "#D9AB28",
+    "travel": "bus",
+    "hotel": { "name": "Ramada by Wyndham, Ajmer", "roomNumber": "207", "roommate": "Naman", "checkIn": "11 Apr 2026", "checkOut": "12 Apr 2026", "note": "Breakfast included" }
+  }
+]

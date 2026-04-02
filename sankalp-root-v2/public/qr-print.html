@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SANKALP — Wristband Print</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1a1a1a;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+
+  /* Print controls — hidden on print */
+  .controls {
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 12px;
+    padding: 20px 28px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .controls label { color: #aaa; font-size: 13px; }
+  .controls select, .controls input {
+    background: #333;
+    border: 1px solid #555;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .btn {
+    background: #5F6838;
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background 0.2s;
+  }
+  .btn:hover { background: #8F993C; }
+  .btn.secondary {
+    background: #D9AB28;
+    color: #1a1a1a;
+  }
+  .btn.secondary:hover { background: #f0c030; }
+
+  .page-title {
+    color: #D9AB28;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .page-subtitle {
+    color: #666;
+    font-size: 12px;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+  }
+
+  /* Grid layout for print */
+  .wristband-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    max-width: 900px;
+  }
+
+  /* Individual wristband — landscape strip */
+  .wristband {
+    width: 260px;
+    height: 90px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    page-break-inside: avoid;
+  }
+
+  /* Left: colored group stripe */
+  .wristband-stripe {
+    width: 6px;
+    flex-shrink: 0;
+  }
+
+  /* Middle: QR code */
+  .wristband-qr {
+    width: 82px;
+    height: 90px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    background: #fff;
+  }
+  .wristband-qr canvas,
+  .wristband-qr img {
+    width: 66px;
+    height: 66px;
+  }
+
+  /* Divider */
+  .wristband-divider {
+    width: 1px;
+    background: #e8e8e8;
+    flex-shrink: 0;
+    margin: 10px 0;
+  }
+
+  /* Right: info */
+  .wristband-info {
+    flex: 1;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    overflow: hidden;
+  }
+
+  .wristband-event {
+    font-size: 7px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #999;
+  }
+  .wristband-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .wristband-role {
+    font-size: 9px;
+    font-weight: 500;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .wristband-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+  }
+  .wristband-group-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .wristband-group-label {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #777;
+    text-transform: uppercase;
+  }
+
+  /* Hole punch indicator */
+  .hole-left, .hole-right {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .hole-left { left: -5px; }
+  .hole-right { right: -5px; }
+
+  /* Loading state */
+  .loading-card {
+    width: 260px;
+    height: 90px;
+    background: #2a2a2a;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+
+  /* PRINT STYLES */
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+    body {
+      background: #fff;
+      padding: 0;
+    }
+    .controls, .page-title, .page-subtitle { display: none !important; }
+    .wristband-grid {
+      gap: 12px;
+      padding: 20px;
+    }
+    .wristband {
+      box-shadow: 0 0 0 1px #ddd;
+    }
+  }
+
+  /* Spinner */
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid #444;
+    border-top-color: #D9AB28;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+    margin-right: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-title">SANKALP 2026</div>
+<div class="page-subtitle">ATTENDEE WRISTBANDS — 11–12 APRIL</div>
+
+<div class="controls">
+  <div style="display:flex;align-items:center;gap:8px;color:#888;font-size:13px;">
+    <span class="spinner" id="spinner"></span>
+    <span id="status-text">Loading attendees...</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <label>Filter:</label>
+    <select id="filter-group" onchange="renderWristbands()">
+      <option value="all">All Attendees</option>
+      <option value="1">Group 1</option>
+      <option value="2">Group 2</option>
+    </select>
+  </div>
+  <button class="btn" onclick="window.print()">🖨 Print All</button>
+  <button class="btn secondary" onclick="downloadSheet()">↓ Download List</button>
+</div>
+
+<div class="wristband-grid" id="grid"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+let attendees = [];
+
+async function loadAttendees() {
+  try {
+    const res = await fetch('/api/attendees');
+    attendees = await res.json();
+    document.getElementById('spinner').style.display = 'none';
+    document.getElementById('status-text').textContent = `${attendees.length} attendees loaded`;
+    renderWristbands();
+  } catch (e) {
+    document.getElementById('status-text').textContent = 'Failed to load attendees';
+    document.getElementById('spinner').style.display = 'none';
+    console.error(e);
+  }
+}
+
+function renderWristbands() {
+  const grid = document.getElementById('grid');
+  const filterVal = document.getElementById('filter-group').value;
+
+  const filtered = filterVal === 'all'
+    ? attendees
+    : attendees.filter(a => String(a.group) === filterVal);
+
+  grid.innerHTML = '';
+
+  filtered.forEach(a => {
+    const card = document.createElement('div');
+    card.className = 'wristband';
+
+    const groupColor = a.groupColor || '#5F6838';
+    const attendeeUrl = `${window.location.origin}/a/${a.id}?arrive=1`;
+    const role = a.department || 'Attendee';
+
+    card.innerHTML = `
+      <div class="wristband-stripe" style="background:${groupColor}"></div>
+      <div class="wristband-qr" id="qr-${a.id}"></div>
+      <div class="wristband-divider"></div>
+      <div class="wristband-info">
+        <div class="wristband-event">SANKALP 2026</div>
+        <div class="wristband-name">${a.name}</div>
+        <div class="wristband-role">${role}</div>
+        <div class="wristband-group">
+          <div class="wristband-group-dot" style="background:${groupColor}"></div>
+          <div class="wristband-group-label">${a.groupLabel || 'Group ' + a.group}</div>
+        </div>
+      </div>
+      <div class="hole-left"></div>
+      <div class="hole-right"></div>
+    `;
+
+    grid.appendChild(card);
+
+    // Generate QR code after card is in DOM
+    setTimeout(() => {
+      const qrContainer = document.getElementById(`qr-${a.id}`);
+      if (qrContainer) {
+        new QRCode(qrContainer, {
+          text: attendeeUrl,
+          width: 66,
+          height: 66,
+          colorDark: '#1a1a1a',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
+    }, 50);
+  });
+}
+
+function downloadSheet() {
+  const rows = [['Name', 'Department', 'Group', 'Phone', 'Room', 'Roommate', 'Travel']];
+  attendees.forEach(a => {
+    rows.push([
+      a.name,
+      a.department || '',
+      a.groupLabel || '',
+      a.phone || '',
+      a.hotel?.roomNumber || '',
+      a.hotel?.roommate || '',
+      a.travel || ''
+    ]);
+  });
+  const csv = rows.map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'sankalp-attendees.csv';
+  a.click();
+}
+
+loadAttendees();
+</script>
+</body>
+</html>

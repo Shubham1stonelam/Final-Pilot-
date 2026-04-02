@@ -1,0 +1,62 @@
+{
+  "name": "SANKALP", "nameHindi": "संकल्प",
+  "tagline": "The Dawn of a New Era",
+  "dates": ["11 Apr 2026", "12 Apr 2026"],
+  "venues": [
+    { "day": 1, "name": "Stonex Refinery", "location": "Kishangarh" },
+    { "day": 1, "name": "Ramada by Wyndham", "location": "Ajmer" },
+    { "day": 2, "name": "Ananta Spa & Resort", "location": "Pushkar" }
+  ],
+  "feedbackSchedule": { "day": 2, "time": "18:15" },
+  "itinerary": [
+    {
+      "day": 1,
+      "items": [
+        { "id": "d1-1", "time": "08:00", "title": "Departure from Delhi", "description": "Bus departs from Stonelam office", "group": "all", "type": "travel" },
+        { "id": "d1-2", "time": "13:00", "title": "Arrival at Kishangarh", "description": "Check in at Stonex Refinery", "group": "all", "type": "arrival" },
+        { "id": "d1-3", "time": "13:30", "title": "Welcome Lunch", "description": "Lunch at the refinery", "group": "all", "type": "meal" },
+        { "id": "d1-4", "time": "14:30", "title": "Refinery Tour — Group 1", "description": "Guided tour of the Stonex facility", "group": 1, "type": "tour" },
+        { "id": "d1-5", "time": "14:30", "title": "Refinery Tour — Group 2", "description": "Guided tour of the Stonex facility", "group": 2, "type": "tour" },
+        { "id": "d1-6", "time": "16:30", "title": "Departure to Ajmer", "description": "Bus to Ramada by Wyndham", "group": "all", "type": "travel" },
+        { "id": "d1-7", "time": "18:00", "title": "Hotel Check-in", "description": "Ramada by Wyndham, Ajmer", "group": "all", "type": "checkin" },
+        { "id": "d1-8", "time": "19:30", "title": "Evening Mixer", "description": "Networking dinner and drinks", "group": "all", "type": "social" },
+        { "id": "d1-9", "time": "22:00", "title": "End of Day 1", "description": "Rest well for Day 2", "group": "all", "type": "end" }
+      ]
+    },
+    {
+      "day": 2,
+      "items": [
+        { "id": "d2-1", "time": "07:00", "title": "Morning & Breakfast", "description": "Breakfast at Ramada", "group": "all", "type": "meal" },
+        { "id": "d2-2", "time": "08:30", "title": "Departure to Pushkar", "description": "Bus to Ananta Spa & Resort", "group": "all", "type": "travel" },
+        { "id": "d2-3", "time": "09:30", "title": "Arrival at Ananta", "description": "Welcome at Ananta Spa & Resort", "group": "all", "type": "arrival" },
+        { "id": "d2-4", "time": "10:00", "title": "SANKALP Opening", "description": "Welcome address and theme reveal", "group": "all", "type": "session" },
+        { "id": "d2-5", "time": "10:30", "title": "Year in Review", "description": "FY2025 performance — ₹140 Cr milestones", "group": "all", "type": "session" },
+        { "id": "d2-6", "time": "11:30", "title": "Vision 2026 & Beyond", "description": "Road to ₹185 Cr and the 4-segment strategy", "group": "all", "type": "session" },
+        { "id": "d2-7", "time": "12:30", "title": "Lunch Break", "description": "Lunch at Ananta", "group": "all", "type": "meal" },
+        { "id": "d2-8", "time": "14:00", "title": "Sales Strategy Deep Dive", "description": "B2B focus, Darren positioning, new org structure", "group": "all", "type": "session" },
+        { "id": "d2-9", "time": "15:00", "title": "Manufacturing Vision", "description": "India manufacturing roadmap", "group": "all", "type": "session" },
+        { "id": "d2-10", "time": "16:00", "title": "Tea Break", "description": "Short break", "group": "all", "type": "break" },
+        { "id": "d2-11", "time": "16:15", "title": "Team Workshops", "description": "Group breakout sessions", "group": "all", "type": "workshop" },
+        { "id": "d2-12", "time": "17:30", "title": "Closing Ceremony", "description": "Awards, recognition and closing address", "group": "all", "type": "session" },
+        { "id": "d2-13", "time": "18:00", "title": "Feedback Session", "description": "Share your thoughts on SANKALP 2026", "group": "all", "type": "feedback" },
+        { "id": "d2-14", "time": "18:30", "title": "Sundowner", "description": "Celebrate at Pushkar sunset", "group": "all", "type": "social" },
+        { "id": "d2-15", "time": "20:00", "title": "Gala Dinner", "description": "Closing dinner and celebration", "group": "all", "type": "meal" },
+        { "id": "d2-16", "time": "22:00", "title": "Departure to Delhi", "description": "Bus departs for Delhi", "group": "all", "type": "travel" }
+      ]
+    }
+  ],
+  "notifications": [
+    { "id": "n1", "day": 1, "time": "07:30", "title": "SANKALP Begins!", "body": "Bus departs in 30 minutes. Be ready at the pickup point.", "type": "urgent" },
+    { "id": "n2", "day": 1, "time": "07:45", "title": "Departure in 15 mins", "body": "Final reminder — bus leaves at 08:00 sharp.", "type": "urgent" },
+    { "id": "n3", "day": 1, "time": "14:00", "title": "Tour Starting Soon", "body": "Refinery tour begins in 30 minutes. Assemble at the main gate.", "type": "normal" },
+    { "id": "n4", "day": 1, "time": "14:15", "title": "Tour in 15 Minutes", "body": "Head to the main gate now for the Stonex Refinery tour.", "type": "normal" },
+    { "id": "n5", "day": 1, "time": "16:00", "title": "Departure to Ajmer", "body": "Bus to Ramada Ajmer leaves in 30 minutes.", "type": "normal" },
+    { "id": "n6", "day": 1, "time": "16:15", "title": "Departure in 15 Minutes", "body": "Wrap up and head to the bus. Departing at 16:30.", "type": "urgent" },
+    { "id": "n7", "day": 2, "time": "08:00", "title": "Departure to Pushkar", "body": "Bus to Ananta departs in 30 minutes. Finish breakfast and check out.", "type": "urgent" },
+    { "id": "n8", "day": 2, "time": "08:15", "title": "15 Minutes to Departure", "body": "Head to the lobby. Bus leaves at 08:30.", "type": "urgent" },
+    { "id": "n9", "day": 2, "time": "09:30", "title": "SANKALP Opens in 30 Mins", "body": "Opening session begins at 10:00. Find your seats.", "type": "normal" },
+    { "id": "n10", "day": 2, "time": "09:45", "title": "Session in 15 Minutes", "body": "Welcome address begins at 10:00. Please be seated.", "type": "normal" },
+    { "id": "n11", "day": 2, "time": "13:45", "title": "Afternoon Sessions Soon", "body": "Sessions resume in 15 minutes. Head back to the main hall.", "type": "normal" },
+    { "id": "n12", "day": 2, "time": "17:45", "title": "Feedback Time!", "body": "Share your SANKALP feedback — your voice shapes what comes next.", "type": "normal", "triggerFeedback": true }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "sankalp-app",
+  "version": "2.0.0",
+  "description": "Stonelam SANKALP 2026 — Event Command System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "setup": "node setup.js",
+    "qr": "node generate-qr.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "web-push": "^3.6.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "qrcode": "^1.5.3"
+  },
+  "optionalDependencies": {
+    "@anthropic-ai/sdk": "^0.20.0"
+  }
+}
