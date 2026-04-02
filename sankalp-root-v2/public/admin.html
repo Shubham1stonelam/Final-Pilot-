@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SANKALP 2026 — Event Command Center</title>
-
   <style>
     :root {
       --bg: #0e0f09;
@@ -27,7 +26,11 @@
       --shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     html, body {
       width: 100%;
@@ -38,106 +41,246 @@
       overflow: hidden;
     }
 
-    button, input, textarea { font: inherit; }
+    button, input, textarea {
+      font: inherit;
+    }
 
-    body { display: flex; flex-direction: column; }
+    body {
+      display: flex;
+      flex-direction: column;
+    }
 
-    .hidden { display: none !important; }
+    .hidden {
+      display: none !important;
+    }
 
     /* Login */
     #loginScreen {
-      position: fixed; inset: 0;
+      position: fixed;
+      inset: 0;
       background:
         radial-gradient(circle at top right, rgba(143,153,60,0.14), transparent 28%),
         linear-gradient(135deg, #0e0f09 0%, #171910 100%);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 9999; padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 24px;
     }
 
     .login-card {
-      width: 100%; max-width: 360px;
+      width: 100%;
+      max-width: 360px;
       background: rgba(23, 25, 16, 0.95);
       border: 1px solid var(--border);
       border-radius: 18px;
       box-shadow: var(--shadow);
       padding: 28px;
-      display: flex; flex-direction: column; gap: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
     }
 
-    .login-brand { font-size: 30px; font-weight: 700; color: var(--gold); letter-spacing: 0.04em; }
-    .login-sub { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-dim); }
+    .login-brand {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+
+    .login-sub {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
 
     .login-card input {
-      width: 100%; background: var(--surface-2);
+      width: 100%;
+      background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: 10px; color: var(--text);
-      padding: 14px 16px; text-align: center;
-      letter-spacing: 0.22em; font-size: 18px;
+      border-radius: 10px;
+      color: var(--text);
+      padding: 14px 16px;
+      text-align: center;
+      letter-spacing: 0.22em;
+      font-size: 18px;
     }
 
-    .login-card input:focus { outline: none; border-color: var(--olive-bright); }
+    .login-card input:focus {
+      outline: none;
+      border-color: var(--olive-bright);
+    }
 
     .login-card button {
       background: var(--olive-bright);
-      color: var(--bg); border: none;
-      border-radius: 10px; padding: 13px 16px;
-      cursor: pointer; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--bg);
+      border: none;
+      border-radius: 10px;
+      padding: 13px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
-    .login-error { min-height: 18px; font-size: 12px; color: #ff8479; }
+    .login-error {
+      min-height: 18px;
+      font-size: 12px;
+      color: #ff8479;
+    }
 
-    /* Main */
-    #mainApp { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+    /* Main app */
+    #mainApp {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0;
+    }
 
     .topbar {
-      height: 64px; flex-shrink: 0;
+      height: 64px;
+      flex-shrink: 0;
       border-bottom: 1px solid var(--border);
       background: rgba(23, 25, 16, 0.94);
-      display: flex; align-items: center; justify-content: space-between;
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 0 18px;
     }
 
-    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .brand-mark {
-      width: 32px; height: 32px; border-radius: 50%;
-      display: grid; place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
       background: linear-gradient(135deg, var(--olive), var(--olive-bright));
+      color: var(--text);
       font-weight: 700;
     }
 
-    .brand-title { font-size: 15px; font-weight: 700; letter-spacing: 0.08em; color: var(--gold); }
-    .brand-sub { font-size: 11px; color: var(--text-dim); letter-spacing: 0.14em; text-transform: uppercase; }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
 
-    .topbar-right { display: flex; align-items: center; gap: 18px; font-size: 12px; color: var(--text-dim); }
+    .brand-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
 
     .live-chip {
-      display: flex; align-items: center; gap: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       background: var(--surface-2);
       border: 1px solid var(--border);
-      padding: 8px 12px; border-radius: 999px;
+      padding: 8px 12px;
+      border-radius: 999px;
     }
 
     .live-dot {
-      width: 8px; height: 8px; border-radius: 50%;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
       background: var(--green);
+      box-shadow: 0 0 12px rgba(76, 175, 80, 0.5);
       animation: blink 1.8s infinite;
     }
 
     @keyframes blink {
-      0%,100%{opacity:1}
-      50%{opacity:.4}
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
     }
 
-    .clock { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--text); }
+    .clock {
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+      font-weight: 600;
+    }
 
-    /* ===== FIXED GRID (NO OVERLAP) ===== */
+    .state-strip,
+    .action-strip {
+      display: grid;
+      gap: 10px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(23, 25, 16, 0.9);
+      flex-shrink: 0;
+    }
+
+    .state-strip {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .action-strip {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .state-btn,
+    .action-btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-dim);
+      padding: 11px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .state-btn:hover,
+    .action-btn:hover {
+      color: var(--text);
+      border-color: rgba(143,153,60,0.4);
+      background: var(--surface-2);
+    }
+
+    .state-btn.active {
+      background: linear-gradient(135deg, var(--olive), var(--olive-bright));
+      color: var(--bg);
+      border-color: transparent;
+    }
+
     .main-grid {
-      flex: 1; min-height: 0;
-      overflow: auto; padding: 16px;
-      display: grid; gap: 16px;
+      flex: 1;
+      min-height: 0;
+      overflow: auto;
+      padding: 16px;
+      display: grid;
       grid-template-columns: 1.2fr 1fr 1fr;
-      align-items: start;
+      gap: 16px;
+      grid-auto-rows: minmax(160px, auto);
+      align-content: start;
     }
 
     .card {
@@ -146,7 +289,10 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 16px;
-      display: flex; flex-direction: column; gap: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 0;
     }
 
     .card-title {
@@ -157,80 +303,1361 @@
       font-weight: 800;
     }
 
-    /* FIXED POSITIONS */
-    #statsCard { grid-column: 1 / -1; grid-row: 1; }
-    #arrivalsCard { grid-column: 1 / 3; grid-row: 2; }
-    #journeyCard { grid-column: 3; grid-row: 2; }
-    #feedbackCard { grid-column: 1; grid-row: 3; }
-    #broadcastCard { grid-column: 2; grid-row: 3; }
-    #agentCard { grid-column: 3; grid-row: 3; }
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
 
-    /* Responsive */
+    /* Layout placement */
+    #statsCard { grid-column: 1 / -1; }
+    #arrivalsCard { grid-column: 1 / 3; }
+    #journeyCard { grid-column: 3; }
+    #feedbackCard { grid-column: 1; }
+    #broadcastCard { grid-column: 2; }
+    #agentCard { grid-column: 3; }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+    }
+
+    .stat-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 12px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-label {
+      margin-top: 8px;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* Arrivals */
+    .group-progress {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .progress-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .arrival-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow: auto;
+      min-height: 0;
+      max-height: 360px;
+    }
+
+    .arrival-row {
+      display: grid;
+      grid-template-columns: 12px 1fr auto auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.03);
+      border-radius: 12px;
+    }
+
+    .arrival-row.late {
+      border-left: 3px solid var(--amber);
+    }
+
+    .arrival-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--olive-bright);
+      box-shadow: 0 0 12px rgba(143,153,60,0.35);
+    }
+
+    .arrival-main {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .arrival-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .arrival-meta {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .arrival-time {
+      font-size: 12px;
+      color: var(--gold);
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .arrival-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .mini-btn {
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      padding: 7px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .mini-btn:hover {
+      border-color: rgba(143,153,60,0.5);
+      color: var(--gold);
+    }
+
+    /* Journey */
+    .session-display {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .session-input-row,
+    .broadcast-actions,
+    .agent-input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .input,
+    .textarea {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 12px 13px;
+      outline: none;
+    }
+
+    .input:focus,
+    .textarea:focus {
+      border-color: rgba(143,153,60,0.55);
+    }
+
+    .textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .danger-btn {
+      border: none;
+      border-radius: 12px;
+      padding: 11px 14px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, var(--olive), var(--olive-bright));
+      color: var(--bg);
+    }
+
+    .secondary-btn {
+      background: var(--surface-3);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .danger-btn {
+      background: var(--red);
+      color: white;
+    }
+
+    .tour-block {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tour-row {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .tour-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      font-weight: 800;
+    }
+
+    .tour-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tour-btn {
+      flex: 1;
+      min-width: 70px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-dim);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .tour-btn.active {
+      background: var(--gold);
+      color: var(--bg);
+      border-color: transparent;
+    }
+
+    /* Feedback */
+    .feedback-rating {
+      font-size: 40px;
+      line-height: 1;
+      font-weight: 800;
+      color: var(--gold);
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .feedback-meta {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .feedback-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .feedback-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .feedback-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 220px;
+      overflow: auto;
+    }
+
+    .feedback-item {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+
+    .feedback-item-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 5px;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .feedback-stars {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .feedback-text {
+      font-size: 12px;
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    /* Broadcast */
+    .tone-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tone-btn {
+      flex: 1;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-dim);
+      border-radius: 10px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .tone-btn.active {
+      background: var(--gold);
+      color: var(--bg);
+      border-color: transparent;
+    }
+
+    .preview-box {
+      min-height: 88px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 13px;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .delivery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .delivery-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+
+    .delivery-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .delivery-label {
+      font-size: 10px;
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+    }
+
+    /* Agent */
+    .quick-command-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .quick-command {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .quick-command:hover {
+      color: var(--gold);
+      border-color: rgba(143,153,60,0.45);
+    }
+
+    .chat-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      min-height: 220px;
+      max-height: 220px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .bubble {
+      max-width: 88%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+
+    .bubble.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, var(--olive), var(--olive-bright));
+      color: var(--bg);
+    }
+
+    .bubble.agent {
+      align-self: flex-start;
+      background: var(--surface-3);
+      border: 1px solid rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+
+    .bubble-meta {
+      margin-top: 4px;
+      font-size: 10px;
+      color: var(--text-dim);
+    }
+
+    .typing {
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .typing span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--olive-bright);
+      animation: typing 1.1s infinite;
+    }
+
+    .typing span:nth-child(2) { animation-delay: 0.15s; }
+    .typing span:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes typing {
+      0%, 100% { transform: translateY(0); opacity: .35; }
+      50% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    .sos-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: var(--red);
+      color: white;
+      text-align: center;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 12px 16px;
+      display: none;
+    }
+
+    .sos-banner.active {
+      display: block;
+    }
+
+    .empty {
+      color: var(--text-dim);
+      font-size: 13px;
+      text-align: center;
+      padding: 18px 10px;
+    }
+
     @media (max-width: 1280px) {
-      .main-grid { grid-template-columns: 1fr 1fr; }
-      #statsCard { grid-column: 1 / -1; grid-row: 1; }
-      #arrivalsCard { grid-column: 1 / -1; grid-row: 2; }
-      #journeyCard { grid-column: 1; grid-row: 3; }
-      #feedbackCard { grid-column: 2; grid-row: 3; }
-      #broadcastCard { grid-column: 1; grid-row: 4; }
-      #agentCard { grid-column: 2; grid-row: 4; }
+      .main-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      #statsCard { grid-column: 1 / -1; }
+      #arrivalsCard { grid-column: 1 / -1; }
+      #journeyCard { grid-column: 1; }
+      #feedbackCard { grid-column: 2; }
+      #broadcastCard { grid-column: 1; }
+      #agentCard { grid-column: 2; }
+
+      .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
     @media (max-width: 900px) {
+      .state-strip { grid-template-columns: repeat(2, 1fr); }
+      .action-strip { grid-template-columns: repeat(2, 1fr); }
       .main-grid { grid-template-columns: 1fr; }
-      #statsCard,#arrivalsCard,#journeyCard,#feedbackCard,#broadcastCard,#agentCard {
+      #statsCard, #arrivalsCard, #journeyCard, #feedbackCard, #broadcastCard, #agentCard {
         grid-column: 1;
+      }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .delivery-grid { grid-template-columns: repeat(2, 1fr); }
+      .topbar {
+        height: auto;
+        padding: 12px;
+        gap: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .topbar-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .arrival-row {
+        grid-template-columns: 12px 1fr;
+      }
+      .arrival-time, .arrival-actions {
+        grid-column: 2;
       }
     }
   </style>
 </head>
-
 <body>
   <div id="loginScreen">
     <div class="login-card">
       <div class="login-brand">SANKALP</div>
       <div class="login-sub">Event Command Center</div>
-      <input id="pinInput" type="password" placeholder="ENTER PIN" />
+      <input id="pinInput" type="password" placeholder="ENTER PIN" maxlength="12" />
       <button id="loginBtn">Enter</button>
       <div id="loginError" class="login-error"></div>
     </div>
   </div>
 
+  <div id="sosBanner" class="sos-banner"></div>
+
   <div id="mainApp" class="hidden">
     <div class="topbar">
       <div class="topbar-left">
         <div class="brand-mark">S</div>
-        <div>
+        <div class="brand-text">
           <div class="brand-title">SANKALP 2026</div>
           <div class="brand-sub">Live Event Command</div>
         </div>
       </div>
+
       <div class="topbar-right">
-        <div class="live-chip"><span class="live-dot"></span>Connected</div>
-        <div class="clock" id="clockDisplay"></div>
+        <div class="live-chip">
+          <span class="live-dot"></span>
+          <span id="connectionLabel">Connected</span>
+        </div>
+        <div class="clock" id="clockDisplay">00:00:00</div>
       </div>
     </div>
 
+    <div class="state-strip">
+      <button class="state-btn active" data-state="Registration">Registration</button>
+      <button class="state-btn" data-state="Transit">Transit</button>
+      <button class="state-btn" data-state="Refinery Tour">Refinery Tour</button>
+      <button class="state-btn" data-state="Session Live">Session Live</button>
+      <button class="state-btn" data-state="Feedback">Feedback</button>
+    </div>
+
+    <div class="action-strip">
+      <button class="action-btn" data-message="Please proceed to the lobby." data-tone="normal">Call All</button>
+      <button class="action-btn" data-message="Bus is arriving now. Please assemble at the pickup point." data-tone="urgent">Bus Alert</button>
+      <button class="action-btn" data-message="Please move to the hall immediately." data-tone="urgent">Move to Hall</button>
+      <button class="action-btn" data-message="Lunch is now being served. Please proceed to the dining area." data-tone="normal">Lunch</button>
+    </div>
+
     <div class="main-grid">
-      <section class="card" id="statsCard"><div class="card-title">Live Status</div></section>
-      <section class="card" id="arrivalsCard"><div class="card-title">Arrivals</div></section>
-      <section class="card" id="journeyCard"><div class="card-title">Journey</div></section>
-      <section class="card" id="feedbackCard"><div class="card-title">Feedback</div></section>
-      <section class="card" id="broadcastCard"><div class="card-title">Broadcast</div></section>
-      <section class="card" id="agentCard"><div class="card-title">AI Command</div></section>
+      <section class="card" id="statsCard">
+        <div class="card-title">Live Status</div>
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-value" id="statArrivals">0</div>
+            <div class="stat-label">Arrived</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="statAttendees">0</div>
+            <div class="stat-label">Total Attendees</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="statOnline">0</div>
+            <div class="stat-label">Online</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="statFeedback">0.0</div>
+            <div class="stat-label">Avg Feedback</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="statNotifications">0</div>
+            <div class="stat-label">Notifications</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="statLastAction" style="font-size:14px; line-height:1.3; color:var(--text);">—</div>
+            <div class="stat-label">Last Action</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="arrivalsCard">
+        <div class="card-title">Arrivals Intelligence</div>
+        <div class="group-progress" id="groupProgress"></div>
+        <div class="arrival-list" id="arrivalList">
+          <div class="empty">Loading arrivals…</div>
+        </div>
+      </section>
+
+      <section class="card" id="journeyCard">
+        <div class="card-title">Journey Control</div>
+
+        <div class="card-subtitle">Current Session</div>
+        <div class="session-display" id="currentSessionDisplay">Waiting...</div>
+
+        <div class="session-input-row">
+          <input id="sessionInput" class="input" placeholder="Update session name" />
+          <button class="primary-btn" id="updateSessionBtn">Update</button>
+        </div>
+
+        <div class="card-subtitle" style="margin-top:4px;">Tour Status</div>
+
+        <div class="tour-block">
+          <div class="tour-row">
+            <div class="tour-label">G1</div>
+            <div class="tour-actions">
+              <button class="tour-btn" data-group="1" data-state="waiting">Waiting</button>
+              <button class="tour-btn" data-group="1" data-state="live">Live</button>
+              <button class="tour-btn" data-group="1" data-state="done">Done</button>
+            </div>
+          </div>
+
+          <div class="tour-row">
+            <div class="tour-label">G2</div>
+            <div class="tour-actions">
+              <button class="tour-btn" data-group="2" data-state="waiting">Waiting</button>
+              <button class="tour-btn" data-group="2" data-state="live">Live</button>
+              <button class="tour-btn" data-group="2" data-state="done">Done</button>
+            </div>
+          </div>
+        </div>
+
+        <button class="secondary-btn" id="openFeedbackBtn">Open Feedback</button>
+      </section>
+
+      <section class="card" id="feedbackCard">
+        <div class="card-title">Feedback Overview</div>
+        <div class="feedback-rating" id="avgRating">0.0</div>
+        <div class="feedback-meta" id="feedbackCount">0 submissions</div>
+        <div class="feedback-pill-row" id="feedbackSummary"></div>
+        <div class="feedback-pill-row" id="feedbackKeywords"></div>
+        <div class="feedback-feed" id="feedbackFeed">
+          <div class="empty">No feedback yet.</div>
+        </div>
+      </section>
+
+      <section class="card" id="broadcastCard">
+        <div class="card-title">Broadcast Console</div>
+
+        <textarea id="broadcastInput" class="textarea" placeholder="Type announcement…"></textarea>
+
+        <div class="tone-row">
+          <button class="tone-btn active" data-tone="normal">Normal</button>
+          <button class="tone-btn" data-tone="urgent">Urgent</button>
+          <button class="tone-btn" data-tone="critical">Critical</button>
+        </div>
+
+        <div class="broadcast-actions">
+          <button class="secondary-btn" id="rewriteBtn">AI Rewrite</button>
+          <button class="secondary-btn" id="previewBtn">Preview</button>
+          <button class="primary-btn" id="sendBtn">Send</button>
+        </div>
+
+        <div class="preview-box" id="previewBox">Preview will appear here.</div>
+
+        <div class="delivery-grid">
+          <div class="delivery-box">
+            <div class="delivery-value" id="deliverySent">0</div>
+            <div class="delivery-label">Sent</div>
+          </div>
+          <div class="delivery-box">
+            <div class="delivery-value" id="deliverySeen">0</div>
+            <div class="delivery-label">Seen</div>
+          </div>
+          <div class="delivery-box">
+            <div class="delivery-value" id="deliveryAcked">0</div>
+            <div class="delivery-label">Acked</div>
+          </div>
+          <div class="delivery-box">
+            <div class="delivery-value" id="deliveryPending">0</div>
+            <div class="delivery-label">Pending</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="agentCard">
+        <div class="card-title">AI Command Center</div>
+
+        <div class="quick-command-row">
+          <button class="quick-command" data-cmd="Give me the current event status.">Status</button>
+          <button class="quick-command" data-cmd="Mark Group 1 tour live.">G1 Live</button>
+          <button class="quick-command" data-cmd="Mark Group 2 tour live.">G2 Live</button>
+          <button class="quick-command" data-cmd="Mark Group 1 tour done.">G1 Done</button>
+          <button class="quick-command" data-cmd="Mark Group 2 tour done.">G2 Done</button>
+          <button class="quick-command" data-cmd="Open feedback for all attendees.">Open Feedback</button>
+        </div>
+
+        <div class="chat-box" id="chatBox">
+          <div class="bubble agent">
+            NAV is ready. Give a command in plain language.
+            <div class="bubble-meta">AI assistant</div>
+          </div>
+        </div>
+
+        <div class="agent-input-row">
+          <input id="agentInput" class="input" placeholder="Type a command…" />
+          <button class="primary-btn" id="agentSendBtn">Send</button>
+        </div>
+      </section>
     </div>
   </div>
 
   <script>
-    document.getElementById('loginBtn').onclick = () => {
-      document.getElementById('loginScreen').classList.add('hidden');
-      document.getElementById('mainApp').classList.remove('hidden');
-    };
+    let adminPin = '';
+    let statusData = null;
+    let attendeesData = [];
+    let eventData = {};
+    let feedbackData = { feedback: [], count: 0, avgRating: 0, sentimentSummary: {}, topKeywords: [] };
+    let onlineData = { online: [] };
+    let announcementsData = [];
+    let currentTone = 'normal';
+    let agentHistory = [];
+    let eventSource = null;
 
-    setInterval(()=>{
-      document.getElementById('clockDisplay').innerText =
-        new Date().toLocaleTimeString();
-    },1000);
+    const loginScreen = document.getElementById('loginScreen');
+    const mainApp = document.getElementById('mainApp');
+    const pinInput = document.getElementById('pinInput');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginError = document.getElementById('loginError');
+    const clockDisplay = document.getElementById('clockDisplay');
+    const connectionLabel = document.getElementById('connectionLabel');
+    const sosBanner = document.getElementById('sosBanner');
+
+    const broadcastInput = document.getElementById('broadcastInput');
+    const previewBox = document.getElementById('previewBox');
+    const chatBox = document.getElementById('chatBox');
+    const agentInput = document.getElementById('agentInput');
+
+    function adminHeaders() {
+      return {
+        'Content-Type': 'application/json',
+        'x-admin-pin': adminPin
+      };
+    }
+
+    function formatTime(dateLike) {
+      if (!dateLike) return '—';
+      try {
+        return new Date(dateLike).toLocaleTimeString('en-IN', {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      } catch {
+        return '—';
+      }
+    }
+
+    function formatRelative(dateLike) {
+      if (!dateLike) return '—';
+      const diffMs = Date.now() - new Date(dateLike).getTime();
+      const mins = Math.floor(diffMs / 60000);
+      if (mins <= 0) return 'Just now';
+      if (mins < 60) return `${mins} min ago`;
+      const hrs = Math.floor(mins / 60);
+      if (hrs < 24) return `${hrs} hr ago`;
+      return `${Math.floor(hrs / 24)} d ago`;
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    async function fetchJSON(url, options = {}) {
+      const res = await fetch(url, options);
+      if (!res.ok) {
+        const text = await res.text().catch(() => '');
+        throw new Error(text || `Request failed: ${res.status}`);
+      }
+      return res.json();
+    }
+
+    async function login() {
+      const pin = pinInput.value.trim();
+      loginError.textContent = '';
+
+      if (!pin) {
+        loginError.textContent = 'Enter PIN';
+        return;
+      }
+
+      try {
+        await fetchJSON('/api/admin/auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pin })
+        });
+
+        adminPin = pin;
+        loginScreen.classList.add('hidden');
+        mainApp.classList.remove('hidden');
+
+        refreshClock();
+        setInterval(refreshClock, 1000);
+
+        await loadAll();
+        connectSSE();
+        setInterval(loadAllSilent, 15000);
+      } catch {
+        loginError.textContent = 'Wrong PIN';
+      }
+    }
+
+    async function loadAll() {
+      const [statusRes, feedbackRes, onlineRes, announcementsRes] = await Promise.all([
+        fetchJSON('/api/admin/status', { headers: adminHeaders() }),
+        fetchJSON('/api/admin/feedback', { headers: adminHeaders() }),
+        fetchJSON('/api/admin/online', { headers: adminHeaders() }),
+        fetchJSON('/api/admin/announcements', { headers: adminHeaders() })
+      ]);
+
+      attendeesData = statusRes.attendees || [];
+      statusData = statusRes.status || {};
+      eventData = statusRes.event || {};
+      feedbackData = feedbackRes || feedbackData;
+      onlineData = onlineRes || onlineData;
+      announcementsData = announcementsRes || [];
+
+      renderAll();
+    }
+
+    async function loadAllSilent() {
+      try {
+        await loadAll();
+      } catch {}
+    }
+
+    function renderAll() {
+      renderStateStrip();
+      renderStats();
+      renderArrivals();
+      renderJourney();
+      renderFeedback();
+      renderBroadcastStats();
+    }
+
+    function renderStateStrip() {
+      const activeState = statusData?.systemState || 'Registration';
+      document.querySelectorAll('.state-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.state === activeState);
+      });
+    }
+
+    function renderStats() {
+      const arrivals = Object.keys(statusData?.arrivals || {}).length;
+      const total = attendeesData.length;
+      const online = (onlineData.online || []).length;
+      const avg = Number(feedbackData.avgRating || 0).toFixed(1);
+      const notifications = statusData?.notificationsSent || 0;
+      const lastAction = statusData?.lastAction || '—';
+
+      document.getElementById('statArrivals').textContent = arrivals;
+      document.getElementById('statAttendees').textContent = total;
+      document.getElementById('statOnline').textContent = online;
+      document.getElementById('statFeedback').textContent = avg;
+      document.getElementById('statNotifications').textContent = notifications;
+      document.getElementById('statLastAction').textContent = lastAction;
+    }
+
+    function renderArrivals() {
+      const groupProgress = document.getElementById('groupProgress');
+      const arrivalList = document.getElementById('arrivalList');
+
+      const arrivalsMap = statusData?.arrivals || {};
+      const arrivedAttendees = attendeesData
+        .filter(a => a.arrived || arrivalsMap[a.id])
+        .map(a => {
+          const arrival = arrivalsMap[a.id] || {};
+          return {
+            ...a,
+            arrivedAt: a.arrivedAt || a.arrivalTime || arrival.time || null,
+            department: a.department || arrival.department || '',
+            city: a.city || a.location || arrival.city || '',
+            group: String(a.group || ''),
+          };
+        });
+
+      const g1Total = attendeesData.filter(a => String(a.group) === '1').length;
+      const g2Total = attendeesData.filter(a => String(a.group) === '2').length;
+      const g1Arrived = arrivedAttendees.filter(a => String(a.group) === '1').length;
+      const g2Arrived = arrivedAttendees.filter(a => String(a.group) === '2').length;
+
+      groupProgress.innerHTML = `
+        <div class="progress-chip">Group 1: <strong>${g1Arrived}/${g1Total}</strong></div>
+        <div class="progress-chip">Group 2: <strong>${g2Arrived}/${g2Total}</strong></div>
+        <div class="progress-chip">Total: <strong>${arrivedAttendees.length}/${attendeesData.length}</strong></div>
+      `;
+
+      const sorted = arrivedAttendees.sort((a, b) => {
+        const ga = Number(a.group || 99);
+        const gb = Number(b.group || 99);
+        if (ga !== gb) return ga - gb;
+        return new Date(b.arrivedAt || 0) - new Date(a.arrivedAt || 0);
+      });
+
+      if (!sorted.length) {
+        arrivalList.innerHTML = '<div class="empty">No arrivals yet.</div>';
+        return;
+      }
+
+      arrivalList.innerHTML = sorted.map(a => {
+        const minutesLate = a.arrivedAt ? ((Date.now() - new Date(a.arrivedAt).getTime()) / 60000) : 0;
+        const lateClass = minutesLate > 180 ? 'late' : '';
+        return `
+          <div class="arrival-row ${lateClass}">
+            <div class="arrival-dot"></div>
+            <div class="arrival-main">
+              <div class="arrival-name">${escapeHtml(a.name)}</div>
+              <div class="arrival-meta">G${escapeHtml(a.group)} • ${escapeHtml(a.department || '—')} • ${escapeHtml(a.city || '—')}</div>
+            </div>
+            <div class="arrival-time" title="${escapeHtml(a.arrivedAt || '')}">
+              ${formatTime(a.arrivedAt)}<br><span style="color:var(--text-dim)">${formatRelative(a.arrivedAt)}</span>
+            </div>
+            <div class="arrival-actions">
+              <button class="mini-btn" onclick="pingAttendee('${escapeHtml(a.id)}')">Ping</button>
+              <button class="mini-btn" onclick="sendDirection('${escapeHtml(a.id)}')">Direct</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderJourney() {
+      document.getElementById('currentSessionDisplay').textContent =
+        statusData?.currentSession || 'Waiting...';
+
+      const group1 = statusData?.tourGroups?.['1'] || statusData?.group1Tour || 'waiting';
+      const group2 = statusData?.tourGroups?.['2'] || statusData?.group2Tour || 'waiting';
+
+      document.querySelectorAll('.tour-btn').forEach(btn => {
+        const group = btn.dataset.group;
+        const state = btn.dataset.state;
+        const current = group === '1' ? group1 : group2;
+        btn.classList.toggle('active', current === state);
+      });
+    }
+
+    function renderFeedback() {
+      document.getElementById('avgRating').textContent = Number(feedbackData.avgRating || 0).toFixed(1);
+      document.getElementById('feedbackCount').textContent = `${feedbackData.count || 0} submissions`;
+
+      const summary = feedbackData.sentimentSummary || {};
+      document.getElementById('feedbackSummary').innerHTML = `
+        <div class="feedback-pill">Positive: ${summary.positive || 0}</div>
+        <div class="feedback-pill">Neutral: ${summary.neutral || 0}</div>
+        <div class="feedback-pill">Negative: ${summary.negative || 0}</div>
+      `;
+
+      const keywords = feedbackData.topKeywords || [];
+      document.getElementById('feedbackKeywords').innerHTML = keywords.length
+        ? keywords.map(k => `<div class="feedback-pill">${escapeHtml(k)}</div>`).join('')
+        : '<div class="feedback-pill">No keywords yet</div>';
+
+      const feed = document.getElementById('feedbackFeed');
+      const items = (feedbackData.feedback || []).slice().reverse().slice(0, 8);
+
+      if (!items.length) {
+        feed.innerHTML = '<div class="empty">No feedback yet.</div>';
+        return;
+      }
+
+      feed.innerHTML = items.map(item => `
+        <div class="feedback-item">
+          <div class="feedback-item-top">
+            <span>${escapeHtml(item.name || 'Unknown')}</span>
+            <span class="feedback-stars">${'★'.repeat(Number(item.rating || 0))}</span>
+          </div>
+          <div class="feedback-text">${escapeHtml(item.comment || '—')}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderBroadcastStats() {
+      const latest = announcementsData?.[0];
+
+      document.getElementById('deliverySent').textContent = latest?.sent ?? 0;
+      document.getElementById('deliverySeen').textContent = Array.isArray(latest?.seen) ? latest.seen.length : 0;
+      document.getElementById('deliveryAcked').textContent = Array.isArray(latest?.acked) ? latest.acked.length : 0;
+      document.getElementById('deliveryPending').textContent = Array.isArray(latest?.pending) ? latest.pending.length : 0;
+    }
+
+    function refreshClock() {
+      clockDisplay.textContent = new Date().toLocaleTimeString('en-IN', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+    }
+
+    function connectSSE() {
+      if (eventSource) {
+        eventSource.close();
+      }
+
+      eventSource = new EventSource('/api/events?id=admin-console');
+      connectionLabel.textContent = 'Connected';
+
+      eventSource.onopen = () => {
+        connectionLabel.textContent = 'Connected';
+      };
+
+      eventSource.onerror = () => {
+        connectionLabel.textContent = 'Reconnecting…';
+      };
+
+      eventSource.onmessage = (evt) => {
+        try {
+          const data = JSON.parse(evt.data);
+          handleLiveEvent(data);
+        } catch {}
+      };
+
+      ['status', 'arrival', 'tourUpdate', 'sessionUpdate', 'announcement', 'feedbackOpen', 'stateUpdate', 'sos', 'ackUpdate'].forEach(type => {
+        eventSource.addEventListener(type, (evt) => {
+          try {
+            const data = JSON.parse(evt.data);
+            handleLiveEvent(data);
+          } catch {}
+        });
+      });
+    }
+
+    function handleLiveEvent(data) {
+      if (!data || !data.type) return;
+
+      if (data.type === 'status' && data.status) {
+        statusData = data.status;
+        renderAll();
+        return;
+      }
+
+      if (data.type === 'arrival') {
+        loadAllSilent();
+        return;
+      }
+
+      if (data.type === 'tourUpdate') {
+        if (!statusData.tourGroups) statusData.tourGroups = {};
+        statusData.tourGroups[String(data.group)] = data.tourStatus || data.state || 'waiting';
+        statusData.group1Tour = statusData.tourGroups['1'];
+        statusData.group2Tour = statusData.tourGroups['2'];
+        renderJourney();
+        return;
+      }
+
+      if (data.type === 'sessionUpdate') {
+        statusData.currentSession = data.session;
+        renderJourney();
+        renderStats();
+        return;
+      }
+
+      if (data.type === 'announcement') {
+        loadAllSilent();
+        return;
+      }
+
+      if (data.type === 'feedbackOpen') {
+        statusData.feedbackOpen = true;
+        renderStats();
+        return;
+      }
+
+      if (data.type === 'stateUpdate') {
+        statusData.systemState = data.systemState;
+        renderStateStrip();
+        return;
+      }
+
+      if (data.type === 'sos') {
+        sosBanner.textContent = `SOS • ${data.name} • ${data.time}`;
+        sosBanner.classList.add('active');
+        setTimeout(() => sosBanner.classList.remove('active'), 8000);
+        return;
+      }
+
+      if (data.type === 'ackUpdate') {
+        const latest = announcementsData.find(a => a.id === data.alertId);
+        if (latest) {
+          latest.acked = data.ackedIds || [];
+          renderBroadcastStats();
+        }
+      }
+    }
+
+    async function updateSystemState(state) {
+      await fetchJSON('/api/admin/state', {
+        method: 'POST',
+        headers: adminHeaders(),
+        body: JSON.stringify({ systemState: state })
+      });
+      statusData.systemState = state;
+      renderStateStrip();
+    }
+
+    async function sendQuickAnnouncement(message, tone = 'normal') {
+      broadcastInput.value = message;
+      setTone(tone);
+      previewBox.textContent = message;
+      await sendAnnouncement();
+    }
+
+    function setTone(tone) {
+      currentTone = tone;
+      document.querySelectorAll('.tone-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tone === tone);
+      });
+    }
+
+    async function rewriteAnnouncement() {
+      const text = broadcastInput.value.trim();
+      if (!text) {
+        previewBox.textContent = 'Type an announcement first.';
+        return;
+      }
+
+      previewBox.textContent = 'Rewriting…';
+
+      try {
+        const data = await fetchJSON('/api/agent', {
+          method: 'POST',
+          headers: adminHeaders(),
+          body: JSON.stringify({ message: text, mode: 'rewrite' })
+        });
+
+        const rewritten = data.reply || text;
+        broadcastInput.value = rewritten;
+        previewBox.textContent = rewritten;
+      } catch {
+        previewBox.textContent = text;
+      }
+    }
+
+    function previewAnnouncement() {
+      const text = broadcastInput.value.trim();
+      previewBox.textContent = text || 'Preview will appear here.';
+    }
+
+    async function sendAnnouncement() {
+      const message = broadcastInput.value.trim();
+      if (!message) {
+        previewBox.textContent = 'Type an announcement first.';
+        return;
+      }
+
+      const data = await fetchJSON('/api/admin/announce', {
+        method: 'POST',
+        headers: adminHeaders(),
+        body: JSON.stringify({
+          message,
+          tone: currentTone
+        })
+      });
+
+      previewBox.textContent = `Sent at ${data.entry?.time || 'now'}:\n${message}`;
+      broadcastInput.value = '';
+      await loadAllSilent();
+    }
+
+    async function updateSession() {
+      const session = document.getElementById('sessionInput').value.trim();
+      if (!session) return;
+
+      await fetchJSON('/api/admin/session', {
+        method: 'POST',
+        headers: adminHeaders(),
+        body: JSON.stringify({ session })
+      });
+
+      document.getElementById('sessionInput').value = '';
+      statusData.currentSession = session;
+      renderJourney();
+    }
+
+    async function updateTour(group, state) {
+      await fetchJSON('/api/admin/tour', {
+        method: 'POST',
+        headers: adminHeaders(),
+        body: JSON.stringify({ group: Number(group), state })
+      });
+
+      if (!statusData.tourGroups) statusData.tourGroups = {};
+      statusData.tourGroups[String(group)] = state;
+      statusData.group1Tour = statusData.tourGroups['1'];
+      statusData.group2Tour = statusData.tourGroups['2'];
+      renderJourney();
+    }
+
+    async function openFeedback() {
+      await fetchJSON('/api/admin/feedback-open', {
+        method: 'POST',
+        headers: adminHeaders(),
+        body: JSON.stringify({})
+      });
+    }
+
+    async function pingAttendee(id) {
+      await fetchJSON(`/api/admin/ping/${id}`, {
+        method: 'POST',
+        headers: adminHeaders(),
+        body: JSON.stringify({
+          message: 'The event team is looking for you. Please check your device.'
+        })
+      });
+    }
+
+    async function sendDirection(id) {
+      await fetchJSON(`/api/admin/direction/${id}`, {
+        method: 'POST',
+        headers: adminHeaders(),
+        body: JSON.stringify({
+          message: 'Please proceed to the main hall immediately.'
+        })
+      });
+    }
+
+    function addChatBubble(role, text) {
+      const div = document.createElement('div');
+      div.className = `bubble ${role}`;
+      div.innerHTML = `${escapeHtml(text)}<div class="bubble-meta">${role === 'user' ? 'You' : 'NAV'}</div>`;
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function addTypingBubble() {
+      const div = document.createElement('div');
+      div.className = 'bubble agent';
+      div.id = 'typingBubble';
+      div.innerHTML = `<div class="typing"><span></span><span></span><span></span></div><div class="bubble-meta">NAV</div>`;
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function removeTypingBubble() {
+      const el = document.getElementById('typingBubble');
+      if (el) el.remove();
+    }
+
+    async function sendAgentCommand(textOverride = '') {
+      const text = (textOverride || agentInput.value).trim();
+      if (!text) return;
+
+      addChatBubble('user', text);
+      agentHistory.push({ role: 'user', content: text });
+      agentInput.value = '';
+      addTypingBubble();
+
+      try {
+        const data = await fetchJSON('/api/agent', {
+          method: 'POST',
+          headers: adminHeaders(),
+          body: JSON.stringify({
+            message: text,
+            history: agentHistory
+          })
+        });
+
+        removeTypingBubble();
+        const reply = data.reply || 'Done.';
+        addChatBubble('agent', reply);
+        agentHistory.push({ role: 'assistant', content: reply });
+        await loadAllSilent();
+      } catch {
+        removeTypingBubble();
+        addChatBubble('agent', 'Something went wrong while processing that command.');
+      }
+    }
+
+    // Event bindings
+    loginBtn.addEventListener('click', login);
+    pinInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') login();
+    });
+
+    document.querySelectorAll('.state-btn').forEach(btn => {
+      btn.addEventListener('click', () => updateSystemState(btn.dataset.state));
+    });
+
+    document.querySelectorAll('.action-btn').forEach(btn => {
+      btn.addEventListener('click', () => sendQuickAnnouncement(btn.dataset.message, btn.dataset.tone || 'normal'));
+    });
+
+    document.querySelectorAll('.tone-btn').forEach(btn => {
+      btn.addEventListener('click', () => setTone(btn.dataset.tone));
+    });
+
+    document.getElementById('rewriteBtn').addEventListener('click', rewriteAnnouncement);
+    document.getElementById('previewBtn').addEventListener('click', previewAnnouncement);
+    document.getElementById('sendBtn').addEventListener('click', sendAnnouncement);
+    document.getElementById('updateSessionBtn').addEventListener('click', updateSession);
+    document.getElementById('openFeedbackBtn').addEventListener('click', openFeedback);
+
+    document.querySelectorAll('.tour-btn').forEach(btn => {
+      btn.addEventListener('click', () => updateTour(btn.dataset.group, btn.dataset.state));
+    });
+
+    document.querySelectorAll('.quick-command').forEach(btn => {
+      btn.addEventListener('click', () => sendAgentCommand(btn.dataset.cmd));
+    });
+
+    document.getElementById('agentSendBtn').addEventListener('click', () => sendAgentCommand());
+    agentInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') sendAgentCommand();
+    });
   </script>
 </body>
 </html>
